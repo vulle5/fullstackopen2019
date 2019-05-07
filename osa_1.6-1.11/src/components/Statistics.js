@@ -7,7 +7,6 @@ const Statistics = ({ good, bad, neutral }) => {
 
   return (
     <>
-      <h2>Statistiikka</h2>
       <p>{`hyvä ${good}`}</p>
       <p>{`neutraali ${neutral}`}</p>
       <p>{`huono ${bad}`}</p>
