@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Button from "./Button";
+import Anecdote from "./Anecdote";
 
 const App = ({ anecdotes }) => {
   const [selected, setSelected] = useState(0);
@@ -16,10 +18,16 @@ const App = ({ anecdotes }) => {
 
   return (
     <>
-      <div>{anecdotes[selected]}</div>
-      <div>{`has ${votes[selected]} votes`}</div>
-      <button onClick={() => handleVoting()}>vote</button>
-      <button onClick={() => handleNext()}>next anecdotes</button>
+      <h1>Anecdote of the day</h1>
+      <Anecdote anecdotes={anecdotes} selected={selected} votes={votes} />
+      <Button title="vote" onClick={handleVoting} />
+      <Button title="next anecdotes" onClick={handleNext} />
+      <h2>Anecdote with most votes</h2>
+      <Anecdote
+        anecdotes={anecdotes}
+        selected={votes.indexOf(Math.max(...votes))}
+        votes={votes}
+      />
     </>
   );
 };
