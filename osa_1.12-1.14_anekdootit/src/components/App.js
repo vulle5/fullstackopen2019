@@ -4,10 +4,10 @@ import Anecdote from "./Anecdote";
 
 const App = ({ anecdotes }) => {
   const [selected, setSelected] = useState(0);
-  const [votes, setVotes] = useState(new Array(5).fill(0));
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0));
 
   const handleNext = () => {
-    setSelected(Math.floor(Math.random() * Math.floor(5)));
+    setSelected(Math.floor(Math.random() * Math.floor(anecdotes.length)));
   };
 
   const handleVoting = () => {
