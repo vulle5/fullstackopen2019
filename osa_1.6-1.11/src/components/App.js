@@ -21,14 +21,16 @@ const App = () => {
       <Button title="huono" handleOnClick={() => setBad(bad + 1)} />
       <h2>Statistiikka</h2>
       {good || bad || neutral !== 0 ? (
-        <>
-          <Statistic text="hyvä" value={good} />
-          <Statistic text="neutraali" value={neutral} />
-          <Statistic text="huono" value={bad} />
-          <Statistic text="yhteensä" value={total} />
-          <Statistic text="keskiarvo" value={avg} />
-          <Statistic text="positiivisia" value={positive} />
-        </>
+        <table>
+          <tbody>
+            <Statistic text="hyvä" value={good} />
+            <Statistic text="neutraali" value={neutral} />
+            <Statistic text="huono" value={bad} />
+            <Statistic text="yhteensä" value={total} />
+            <Statistic text="keskiarvo" value={avg} />
+            <Statistic text="positiivisia" value={positive} />
+          </tbody>
+        </table>
       ) : (
         "Ei yhtään palautetta annettu"
       )}
