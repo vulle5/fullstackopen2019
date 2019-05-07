@@ -2,7 +2,7 @@ import React from "react";
 
 import Part from "./Part";
 
-const Content = ({ parts }) => {
+const Content = ({ course: { parts } }) => {
   return (
     <div>
       {parts.map(part => (
