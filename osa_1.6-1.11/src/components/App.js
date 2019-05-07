@@ -8,6 +8,10 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  let total = good + bad + neutral;
+  let avg = (bad / good) * 100;
+  let positive = (good / total) * 100 || 0;
+
   return (
     <div>
       <h1>anna palautetta</h1>
@@ -18,6 +22,9 @@ const App = () => {
       <p>{`hyvä ${good}`}</p>
       <p>{`neutraali ${neutral}`}</p>
       <p>{`huono ${bad}`}</p>
+      <p>{`yhteensä ${total}`}</p>
+      <p>{`keskiarvo ${avg}`}</p>
+      <p>{`positiivista ${positive}%`}</p>
     </div>
   );
 };
