@@ -30,11 +30,9 @@ const App = () => {
     e.preventDefault();
 
     const newPerson = { name: newName, num: newNumber };
-    if (persons.some(person => person.name === newPerson.name)) {
-      alert(`${newName} on jo luettelossa`);
-    } else {
-      setPersons(persons.concat(newPerson));
-    }
+    persons.some(person => person.name === newPerson.name)
+      ? alert(`${newName} on jo luettelossa`)
+      : setPersons(persons.concat(newPerson));
     setNewName("");
   };
 
