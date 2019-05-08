@@ -1,13 +1,9 @@
 import React from "react";
 
 const Total = ({ course: { parts } }) => {
-  const calcTotal = () => {
-    let total = 0;
-    parts.map(part => (total += part.exercises));
-    return total;
-  };
+  const total = parts.map(part => part.exercises).reduce((a, c) => a + c);
 
-  return <p>{`yhteensä ${calcTotal()} tehtävää`}</p>;
+  return <p>{`yhteensä ${total} tehtävää`}</p>;
 };
 
 export default Total;
