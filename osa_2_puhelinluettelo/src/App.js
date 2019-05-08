@@ -1,33 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const App = () => {
-  const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", num: "050-1234567" }
   ]);
-  const [ newName, setNewName ] = useState('');
+  const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
 
-  const handleChange = e => {
+  const handleNameChange = e => {
     setNewName(e.target.value);
+  };
+
+  const handleNumberChange = e => {
+    setNewNumber(e.target.value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const newPerson = { name: newName };
+    const newPerson = { name: newName, num: newNumber };
     if (persons.some(person => person.name === newPerson.name)) {
       alert(`${newName} on jo luettelossa`);
     } else {
       setPersons(persons.concat(newPerson));
     }
-    setNewName('')
+    setNewName("");
   };
 
   return (
     <div>
       <h2>Puhelinluettelo</h2>
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit}>
         <div>
-          nimi: <input value={newName} onChange={handleChange} />
+          nimi: <input value={newName} onChange={handleNameChange} />
+        </div>
+        <div>
+          numero: <input value={newNumber} onChange={handleNumberChange} />
         </div>
         <div>
           <button type="submit">lisää</button>
@@ -35,11 +43,12 @@ const App = () => {
       </form>
       <h2>Numerot</h2>
       <ul>
-        {persons.map(person => <li key={person.name}>{person.name}</li>)}
+        {persons.map(person => (
+          <li key={person.name}>{`${person.name} ${person.num}`}</li>
+        ))}
       </ul>
     </div>
-  )
-
+  );
 };
 
-export default App
+export default App;
