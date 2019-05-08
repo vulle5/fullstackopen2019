@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import NumberList from "./NumberList";
+import AddNumberForm from "./AddNumberForm";
+import NumberFilter from "./NumberFilter";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", num: "050-1234567" }
+    { name: "Arto Hellas", num: "040-123456" },
+    { name: "Martti Tienari", num: "040-123456" },
+    { name: "Arto Järvinen", num: "040-123456" },
+    { name: "Lea Kutvonen", num: "040-123456" }
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [filter, setFilter] = useState("");
 
   const handleNameChange = e => {
     setNewName(e.target.value);
@@ -13,6 +20,10 @@ const App = () => {
 
   const handleNumberChange = e => {
     setNewNumber(e.target.value);
+  };
+
+  const handleFilter = e => {
+    setFilter(e.target.value);
   };
 
   const handleSubmit = e => {
@@ -27,26 +38,24 @@ const App = () => {
     setNewName("");
   };
 
+  const numsToShow = persons.filter(person =>
+    person.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <div>
       <h2>Puhelinluettelo</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          nimi: <input value={newName} onChange={handleNameChange} />
-        </div>
-        <div>
-          numero: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">lisää</button>
-        </div>
-      </form>
+      <NumberFilter filter={filter} handleFilter={handleFilter} />
+      <h2>lisää</h2>
+      <AddNumberForm
+        newName={newName}
+        newNumber={newNumber}
+        handleNameChange={() => handleNameChange}
+        handleNumberChange={() => handleNumberChange}
+        handleSubmit={() => handleSubmit}
+      />
       <h2>Numerot</h2>
-      <ul>
-        {persons.map(person => (
-          <li key={person.name}>{`${person.name} ${person.num}`}</li>
-        ))}
-      </ul>
+      <NumberList persons={numsToShow} />
     </div>
   );
 };
