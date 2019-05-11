@@ -38,7 +38,7 @@ const App = () => {
         countries={countries}
         handleResultClick={handleResultClick}
       />
-      <Country country={currentCountry} />
+      {countries.length < 10 ? <Country country={currentCountry} /> : null}
     </div>
   );
 };
