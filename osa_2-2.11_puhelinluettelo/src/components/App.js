@@ -4,12 +4,14 @@ import NumberList from "./NumberList";
 import AddNumberForm from "./AddNumberForm";
 import NumberFilter from "./NumberFilter";
 import personService from "../services/persons";
+import BannerMessage from "./BannerMessage";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [bannerMessage, setBannerMessage] = useState(null);
 
   useEffect(() => {
     getPersons();
@@ -62,6 +64,10 @@ const App = () => {
       }
     } else {
       personService.create(personObject).then(person => {
+        setBannerMessage(`Lisätty ${person.name}`);
+        setTimeout(() => {
+          setBannerMessage(null);
+        }, 5000);
         setPersons(persons.concat(person));
         setNewName("");
         setNewNumber("");
@@ -76,6 +82,7 @@ const App = () => {
   return (
     <div>
       <h2>Puhelinluettelo</h2>
+      <BannerMessage message={bannerMessage} type="info" />
       <NumberFilter filter={filter} handleFilter={handleFilter} />
       <h2>lisää</h2>
       <AddNumberForm
