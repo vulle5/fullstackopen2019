@@ -5,11 +5,12 @@ import { useDebounce } from "use-debounce";
 import CountrySearch from "./components/CountrySearch";
 import CountryResults from "./components/CountryResults";
 import Country from "./components/Country";
+import CountryWeather from "./components/CountryWeather";
 
 const App = () => {
   const [term, setTerm] = useState("");
   const [countries, setCountries] = useState([]);
-  const [currentCountry, setCurrentCountry] = useState([]);
+  const [currentCountry, setCurrentCountry] = useState({});
   const [debouncedText] = useDebounce(term, 300);
 
   useEffect(() => {
@@ -19,16 +20,13 @@ const App = () => {
           `https://restcountries.eu/rest/v2/name/${debouncedText}`
         );
         setCountries(data);
-        setCurrentCountry(data[0]);
       }
     })();
   }, [debouncedText]);
 
   const handleInputChange = ({ target }) => setTerm(target.value);
 
-  const handleResultClick = country => {
-    setCurrentCountry(country);
-  };
+  const handleResultClick = country => setCurrentCountry(country);
 
   return (
     <div className="App">
@@ -38,7 +36,12 @@ const App = () => {
         countries={countries}
         handleResultClick={handleResultClick}
       />
-      {countries.length < 10 ? <Country country={currentCountry} /> : null}
+      {currentCountry.name ? (
+        <>
+          <Country country={currentCountry} />
+          <CountryWeather country={currentCountry} />
+        </>
+      ) : null}
     </div>
   );
 };
