@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import NumberList from "./NumberList";
 import AddNumberForm from "./AddNumberForm";
 import NumberFilter from "./NumberFilter";
@@ -31,12 +32,21 @@ const App = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const personObject = {
+      name: newName,
+      num: newNumber
+    };
 
     const newPerson = { name: newName, num: newNumber };
     persons.some(person => person.name === newPerson.name)
       ? alert(`${newName} on jo luettelossa`)
-      : setPersons(persons.concat(newPerson));
-    setNewName("");
+      : axios
+          .post("http://localhost:3001/persons", personObject)
+          .then(response => {
+            setPersons(persons.concat(response.data));
+            setNewName("");
+            setNewNumber("");
+          });
   };
 
   const numsToShow = persons.filter(person =>
