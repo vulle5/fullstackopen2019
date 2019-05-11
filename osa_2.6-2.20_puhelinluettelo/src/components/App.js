@@ -12,16 +12,14 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
   const [bannerMessage, setBannerMessage] = useState(null);
+  const [bannerType, setBannerType] = useState("success");
 
   useEffect(() => {
     getPersons();
   }, []);
 
   const getPersons = () => {
-    personService.getAll().then(persons => {
-      console.log(persons);
-      setPersons(persons);
-    });
+    personService.getAll().then(persons => setPersons(persons));
   };
 
   const handleNameChange = e => {
@@ -38,7 +36,19 @@ const App = () => {
 
   const handlePersonClick = ({ id, name }) => {
     if (window.confirm(`Poistetaanko henkilö ${name}?`)) {
-      personService.deletePerson(id).then(() => getPersons());
+      personService
+        .deletePerson(id)
+        .then(() => getPersons())
+        .catch(error => {
+          setBannerType("error");
+          setBannerMessage(
+            `Henkilö '${name}' on jo valitettavasti poistettu palvelimelta`
+          );
+          setTimeout(() => {
+            setBannerMessage(null);
+          }, 5000);
+          setPersons(persons.filter(person => person.id !== id));
+        });
     }
   };
 
@@ -64,6 +74,7 @@ const App = () => {
       }
     } else {
       personService.create(personObject).then(person => {
+        setBannerType("success");
         setBannerMessage(`Lisätty ${person.name}`);
         setTimeout(() => {
           setBannerMessage(null);
@@ -82,7 +93,7 @@ const App = () => {
   return (
     <div>
       <h2>Puhelinluettelo</h2>
-      <BannerMessage message={bannerMessage} type="info" />
+      <BannerMessage message={bannerMessage} type={bannerType} />
       <NumberFilter filter={filter} handleFilter={handleFilter} />
       <h2>lisää</h2>
       <AddNumberForm
