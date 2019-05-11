@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import NumberList from "./NumberList";
 import AddNumberForm from "./AddNumberForm";
 import NumberFilter from "./NumberFilter";
-import axios from "axios";
+import personService from "../services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,11 +11,10 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
 
+  console.log(persons);
+
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get("http://localhost:3001/persons");
-      setPersons(data);
-    })();
+    personService.getAll().then(persons => setPersons(persons));
   }, []);
 
   const handleNameChange = e => {
@@ -40,13 +39,11 @@ const App = () => {
     const newPerson = { name: newName, num: newNumber };
     persons.some(person => person.name === newPerson.name)
       ? alert(`${newName} on jo luettelossa`)
-      : axios
-          .post("http://localhost:3001/persons", personObject)
-          .then(response => {
-            setPersons(persons.concat(response.data));
-            setNewName("");
-            setNewNumber("");
-          });
+      : personService.create(personObject).then(person => {
+          setPersons(persons.concat(person));
+          setNewName("");
+          setNewNumber("");
+        });
   };
 
   const numsToShow = persons.filter(person =>
