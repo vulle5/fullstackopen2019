@@ -11,11 +11,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
 
-  console.log(persons);
-
   useEffect(() => {
-    personService.getAll().then(persons => setPersons(persons));
+    getPersons();
   }, []);
+
+  const getPersons = () => {
+    personService.getAll().then(persons => setPersons(persons));
+  };
 
   const handleNameChange = e => {
     setNewName(e.target.value);
@@ -27,6 +29,12 @@ const App = () => {
 
   const handleFilter = e => {
     setFilter(e.target.value);
+  };
+
+  const handlePersonClick = ({ id, name }) => {
+    if (window.confirm(`Poistetaanko henkilö ${name}?`)) {
+      personService.deletePerson(id).then(() => getPersons());
+    }
   };
 
   const handleSubmit = e => {
@@ -63,7 +71,7 @@ const App = () => {
         handleSubmit={() => handleSubmit}
       />
       <h2>Numerot</h2>
-      <NumberList persons={numsToShow} />
+      <NumberList persons={numsToShow} handlePersonClick={handlePersonClick} />
     </div>
   );
 };

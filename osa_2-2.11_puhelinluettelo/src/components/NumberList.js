@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Fragment } from "react";
 
-const NumberList = ({ persons }) => {
+const NumberList = ({ persons, handlePersonClick }) => {
   return (
     <ul>
       {persons.map(person => (
-        <li key={person.name}>{`${person.name} ${person.num}`}</li>
+        <Fragment key={person.id}>
+          <li>{`${person.name} ${person.num}`}</li>
+          <button onClick={() => handlePersonClick(person)}>poista</button>
+        </Fragment>
       ))}
     </ul>
   );
