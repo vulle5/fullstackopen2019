@@ -9,6 +9,7 @@ import Country from "./components/Country";
 const App = () => {
   const [term, setTerm] = useState("");
   const [countries, setCountries] = useState([]);
+  const [currentCountry, setCurrentCountry] = useState([]);
   const [debouncedText] = useDebounce(term, 300);
 
   useEffect(() => {
@@ -18,21 +19,26 @@ const App = () => {
           `https://restcountries.eu/rest/v2/name/${debouncedText}`
         );
         setCountries(data);
+        setCurrentCountry(data[0]);
       }
     })();
   }, [debouncedText]);
 
   const handleInputChange = ({ target }) => setTerm(target.value);
 
+  const handleResultClick = country => {
+    setCurrentCountry(country);
+  };
+
   return (
     <div className="App">
       <h1>App</h1>
       <CountrySearch term={term} handleInputChange={handleInputChange} />
-      {countries.length === 1 ? (
-        <Country country={countries[0]} />
-      ) : (
-        <CountryResults countries={countries} />
-      )}
+      <CountryResults
+        countries={countries}
+        handleResultClick={handleResultClick}
+      />
+      <Country country={currentCountry} />
     </div>
   );
 };
