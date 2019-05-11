@@ -16,7 +16,10 @@ const App = () => {
   }, []);
 
   const getPersons = () => {
-    personService.getAll().then(persons => setPersons(persons));
+    personService.getAll().then(persons => {
+      console.log(persons);
+      setPersons(persons);
+    });
   };
 
   const handleNameChange = e => {
@@ -44,14 +47,26 @@ const App = () => {
       num: newNumber
     };
 
-    const newPerson = { name: newName, num: newNumber };
-    persons.some(person => person.name === newPerson.name)
-      ? alert(`${newName} on jo luettelossa`)
-      : personService.create(personObject).then(person => {
-          setPersons(persons.concat(person));
-          setNewName("");
-          setNewNumber("");
-        });
+    if (persons.some(person => person.name === personObject.name)) {
+      if (
+        window.confirm(
+          `${newName} on jo luettelossa, korvataanko vanha numero uudella?`
+        )
+      ) {
+        const updatePerson = persons.find(
+          person => person.name === personObject.name
+        );
+        personService
+          .update(updatePerson.id, personObject)
+          .then(() => getPersons());
+      }
+    } else {
+      personService.create(personObject).then(person => {
+        setPersons(persons.concat(person));
+        setNewName("");
+        setNewNumber("");
+      });
+    }
   };
 
   const numsToShow = persons.filter(person =>
