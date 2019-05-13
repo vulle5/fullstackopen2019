@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 let people = [
   {
@@ -24,6 +25,8 @@ let people = [
   }
 ];
 
+app.use(bodyParser.json());
+
 app.get("/", (req, res) => {
   res.send("<h1>Hello World!</h1>");
 });
@@ -47,6 +50,39 @@ app.get("/api/persons/:id", (req, res) => {
   } else {
     res.status(404).end();
   }
+});
+
+const generateNewID = max => {
+  return Math.floor(Math.random() * Math.floor(max));
+};
+
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+
+  if (!body.name) {
+    return res.status(400).json({
+      error: "name is missing"
+    });
+  } else if (!body.num) {
+    return res.status(400).json({
+      error: "number is missing"
+    });
+  } else if (people.some(person => person.name === body.name)) {
+    return res.status(400).json({
+      error: "name must be unique"
+    });
+  }
+
+  const newPerson = {
+    name: body.name,
+    num: body.num,
+    id: generateNewID(99999)
+  };
+  console.log(newPerson);
+
+  people = people.concat(newPerson);
+
+  res.json(newPerson);
 });
 
 app.delete("/api/persons/:id", (req, res) => {
