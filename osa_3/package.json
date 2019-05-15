@@ -1,0 +1,32 @@
+{
+  "name": "osa3_3-",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "12.2.0",
+    "npm": "6.9.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "lint": "eslint .",
+    "client": "npm start",
+    "dev": "concurrently \"npm run watch\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.16.4",
+    "mongoose": "^5.5.8",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "1.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "4.1.0",
+    "eslint": "^5.16.0",
+    "nodemon": "1.18.9"
+  }
+}
