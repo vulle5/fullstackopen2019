@@ -41,6 +41,7 @@ const mostBlogs = blogs => {
     }
     currentHigh = 0;
   }
+
   Object.assign(mostBlogs, {
     author: authorWithMostBlogs,
     blogs: mostBlogsAmount
@@ -49,9 +50,30 @@ const mostBlogs = blogs => {
   return mostBlogs;
 };
 
+const mostLikes = blogs => {
+  let mostLikes = { author: "", likes: "" };
+  let listOfLikes = [];
+
+  blogs.forEach(blog => {
+    listOfLikes.push(blog.likes);
+  });
+
+  let objectWithMostLikes = blogs.find(
+    blog => Math.max(...listOfLikes) === blog.likes
+  );
+
+  Object.assign(mostLikes, {
+    author: objectWithMostLikes.author,
+    likes: Math.max(...listOfLikes)
+  });
+
+  return mostLikes;
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 };
