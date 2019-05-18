@@ -10,11 +10,7 @@ const totalLikes = blogs => {
 
 const favoriteBlog = blogs => {
   let highestBlog = {
-    title: "test",
-    author: "test",
-    url: "google.com",
-    likes: 0,
-    id: "5cdffe8ca0e2862fac5c35b7"
+    likes: -1
   };
   blogs.forEach(blog => {
     if (blog.likes >= highestBlog.likes) {
@@ -24,8 +20,38 @@ const favoriteBlog = blogs => {
   return highestBlog;
 };
 
+const mostBlogs = blogs => {
+  let mostBlogs = { author: "", blogs: "" };
+  var mostBlogsAmount = 1;
+  var currentHigh = 0;
+  var authorWithMostBlogs;
+  let authors = [];
+
+  blogs.forEach(blog => {
+    authors.push(blog.author);
+  });
+
+  for (var i = 0; i < authors.length; i++) {
+    for (var j = i; j < authors.length; j++) {
+      if (authors[i] == authors[j]) currentHigh++;
+      if (mostBlogsAmount < currentHigh) {
+        mostBlogsAmount = currentHigh;
+        authorWithMostBlogs = authors[i];
+      }
+    }
+    currentHigh = 0;
+  }
+  Object.assign(mostBlogs, {
+    author: authorWithMostBlogs,
+    blogs: mostBlogsAmount
+  });
+
+  return mostBlogs;
+};
+
 module.exports = {
   dummy,
   totalLikes,
-  favoriteBlog
+  favoriteBlog,
+  mostBlogs
 };

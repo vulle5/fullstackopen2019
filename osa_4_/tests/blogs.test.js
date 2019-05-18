@@ -54,3 +54,34 @@ describe("favorite blog", () => {
     expect(result).toEqual(blogs[1]);
   });
 });
+
+describe("favorite writer", () => {
+  test("should return writer with the most blogs", () => {
+    const blogs = [
+      {
+        title: "Java",
+        author: "Minä",
+        url: "google.com",
+        likes: 5,
+        id: "5cdffe8ca0e2862fac5c35b7"
+      },
+      {
+        title: "JavaScript",
+        author: "Minä",
+        url: "google.com",
+        likes: 10,
+        id: "5ce00abea7efa24114584dfb"
+      },
+      {
+        title: "Elixir",
+        author: "Joku muu",
+        url: "google.com",
+        likes: 7,
+        id: "5ce00abea7efa24114584dfb"
+      }
+    ];
+
+    const result = listHelper.mostBlogs(blogs);
+    expect(result).toEqual({ author: "Minä", blogs: 2 });
+  });
+});
