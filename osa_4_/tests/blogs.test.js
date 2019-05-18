@@ -30,3 +30,27 @@ describe("total likes", () => {
     expect(result).toBe(10);
   });
 });
+
+describe("favorite blog", () => {
+  test("should return object with highest likes", () => {
+    const blogs = [
+      {
+        title: "Java",
+        author: "Minä",
+        url: "google.com",
+        likes: 5,
+        id: "5cdffe8ca0e2862fac5c35b7"
+      },
+      {
+        title: "JavaScript",
+        author: "Minä",
+        url: "google.com",
+        likes: 10,
+        id: "5ce00abea7efa24114584dfb"
+      }
+    ];
+
+    const result = listHelper.favoriteBlog(blogs);
+    expect(result).toEqual(blogs[1]);
+  });
+});
