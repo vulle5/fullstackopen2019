@@ -37,3 +37,11 @@ test("api should return 2 blogs in json", async () => {
     .expect("Content-Type", /application\/json/);
   expect(response.body.length).toBe(2);
 });
+
+test("blog should contain id in json", async () => {
+  const response = await api
+    .get("/api/blogs")
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+  expect(response.body[0].id && response.body[1].id).toBeDefined();
+});
