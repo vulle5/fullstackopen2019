@@ -10,9 +10,14 @@ blogRoutes.get("/", (request, response) => {
 blogRoutes.post("/", (request, response) => {
   const blog = new Blog(request.body);
 
-  blog.save().then(result => {
-    response.status(201).json(result);
-  });
+  blog
+    .save()
+    .then(result => {
+      response.status(201).json(result);
+    })
+    .catch(error => {
+      response.status(400).json(error);
+    });
 });
 
 module.exports = blogRoutes;
