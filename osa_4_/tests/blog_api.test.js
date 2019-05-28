@@ -68,3 +68,29 @@ test("blog should contain id in json", async () => {
 
   expect(contents).toContain("Elixir");
 });
+
+test("blog without likes field should contain likes field with value of 0 in json", async () => {
+  const newBlog = {
+    title: "Elixir",
+    author: "Hän",
+    url: "elixir-lang.org"
+  };
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+
+  const response = await api.get("/api/blogs");
+
+  const contents = response.body.map(res => res.likes);
+
+  expect(response.body.length).toBe(initialBlogs.length + 1);
+
+  expect(contents[2]).toBe(0);
+});
+
+afterAll(() => {
+  mongoose.connection.close();
+});
