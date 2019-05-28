@@ -45,3 +45,26 @@ test("blog should contain id in json", async () => {
     .expect("Content-Type", /application\/json/);
   expect(response.body[0].id && response.body[1].id).toBeDefined();
 });
+
+test("blog should contain id in json", async () => {
+  const newBlog = {
+    title: "Elixir",
+    author: "Hän",
+    url: "elixir-lang.org",
+    likes: 10
+  };
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+
+  const response = await api.get("/api/blogs");
+
+  const contents = response.body.map(res => res.title);
+
+  expect(response.body.length).toBe(initialBlogs.length + 1);
+
+  expect(contents).toContain("Elixir");
+});
