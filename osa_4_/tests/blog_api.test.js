@@ -30,7 +30,10 @@ beforeEach(async () => {
   await blogObject.save();
 });
 
-test("api should return 2 blogs", async () => {
-  const response = await api.get("/api/blogs");
+test("api should return 2 blogs in json", async () => {
+  const response = await api
+    .get("/api/blogs")
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
   expect(response.body.length).toBe(2);
 });
