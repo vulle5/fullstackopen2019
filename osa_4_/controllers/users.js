@@ -3,9 +3,11 @@ const usersRouter = require("express").Router();
 const User = require("../models/User");
 
 usersRouter.get("/", async (request, response) => {
-  User.find({}).then(user => {
-    response.json(user);
-  });
+  User.find({})
+    .populate("blogs", { url: 1, title: 1, author: 1 })
+    .then(user => {
+      response.json(user);
+    });
 });
 
 usersRouter.post("/", async (request, response) => {
