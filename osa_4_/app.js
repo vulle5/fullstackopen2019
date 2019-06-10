@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const blogRoutes = require("./controllers/blogs");
 const usersRouter = require("./controllers/users");
+const loginRouter = require("./controllers/login");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -21,5 +22,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/blogs", blogRoutes);
 app.use("/api/users", usersRouter);
+app.use("/api/login", loginRouter);
 
 module.exports = app;
