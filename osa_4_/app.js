@@ -1,7 +1,9 @@
+require("dotenv").config();
 const keys = require("./utils/config/keys");
 const express = require("express");
 const app = express();
 const blogRoutes = require("./controllers/blogs");
+const usersRouter = require("./controllers/users");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -18,5 +20,6 @@ mongoose
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api/blogs", blogRoutes);
+app.use("/api/users", usersRouter);
 
 module.exports = app;
