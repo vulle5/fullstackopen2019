@@ -4,10 +4,13 @@ import blogService from "./services/blogs";
 import BlogList from "./components/BlogList";
 import LogoutButton from "./components/LogoutButton";
 import CreateBlog from "./components/CreateBlog";
+import BannerMessage from "./components/BannerMessage";
 
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [bannerMessage, setBannerMessage] = useState(null);
+  const [bannerType, setBannerType] = useState("success");
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
 
@@ -33,11 +36,11 @@ function App() {
       setUsername("");
       setPassword("");
     } catch (exception) {
-      console.log("wrong credentials");
-      // setErrorMessage('wrong credentials')
-      // setTimeout(() => {
-      //   setErrorMessage(null)
-      // }, 5000)
+      setTimeout(() => {
+        setBannerMessage(null);
+      }, 5000);
+      setBannerMessage("Wrong username or password");
+      setBannerType("error");
     }
   };
 
@@ -82,17 +85,26 @@ function App() {
     setUser(null);
   };
 
+  const onCreate = (title, author) => {
+    setTimeout(() => {
+      setBannerMessage(null);
+    }, 5000);
+    setBannerMessage(`a new blog ${title} by ${author} added`);
+    setBannerType("success");
+  };
+
   return (
     <div className="App">
       <h2>{user === null ? "login to application" : "blogs"}</h2>
       {user !== null && <LogoutButton onLogout={handleLogout} />}
+      <BannerMessage message={bannerMessage} type={bannerType} />
       <p>{user !== null && `${user.name} logged in`}</p>
 
       {user === null ? (
         loginForm()
       ) : (
         <>
-          <CreateBlog token={user.token} fetchBlogs={fetchBlogs} />
+          <CreateBlog token={user.token} onCreate={onCreate} />
           <BlogList fetchBlogs={fetchBlogs} blogs={blogs} />
         </>
       )}
