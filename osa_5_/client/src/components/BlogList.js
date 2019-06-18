@@ -1,5 +1,5 @@
-import React from "react";
-import Blog from "./Blog";
+import React from 'react'
+import Blog from './Blog'
 
 const BlogList = ({ blogs, fetchBlogs, user }) => {
   return (
@@ -10,7 +10,7 @@ const BlogList = ({ blogs, fetchBlogs, user }) => {
           <Blog blog={blog} key={blog.id} fetchBlogs={fetchBlogs} user={user} />
         ))}
     </div>
-  );
-};
+  )
+}
 
-export default BlogList;
+export default BlogList

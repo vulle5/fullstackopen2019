@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react'
 
 const BannerMessage = ({ type, message }) => {
   if (message === null) {
-    return null;
+    return null
   }
 
-  return <div className={type}>{message}</div>;
-};
+  return <div className={type}>{message}</div>
+}
 
-export default BannerMessage;
+export default BannerMessage

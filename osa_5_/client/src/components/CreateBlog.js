@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import blogService from "../services/blogs";
+import React, { useState } from 'react'
+import blogService from '../services/blogs'
 
 const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setURL] = useState("");
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setURL] = useState('')
 
   const handleSubmit = async event => {
-    event.preventDefault();
+    event.preventDefault()
 
     const blogObject = {
       title: title,
       author: author,
       url: url
-    };
+    }
 
     try {
-      blogService.setToken(token);
-      await blogService.create(blogObject);
-      onCreate(title, author);
-      setTitle("");
-      setAuthor("");
-      setURL("");
-      await fetchBlogs();
+      blogService.setToken(token)
+      await blogService.create(blogObject)
+      onCreate(title, author)
+      setTitle('')
+      setAuthor('')
+      setURL('')
+      await fetchBlogs()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div>
@@ -62,7 +62,7 @@ const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
         <button type="submit">create</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default CreateBlog;
+export default CreateBlog
