@@ -113,7 +113,7 @@ const App = () => {
               fetchBlogs={fetchBlogs}
             />
           </Togglable>
-          <BlogList blogs={blogs} />
+          <BlogList blogs={blogs} fetchBlogs={fetchBlogs} />
         </>
       )}
     </div>
