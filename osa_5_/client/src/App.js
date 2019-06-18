@@ -107,7 +107,11 @@ const App = () => {
       ) : (
         <>
           <Togglable buttonLabel={"new note"}>
-            <CreateBlog token={user.token} onCreate={onCreate} />
+            <CreateBlog
+              token={user.token}
+              onCreate={onCreate}
+              fetchBlogs={fetchBlogs}
+            />
           </Togglable>
           <BlogList blogs={blogs} />
         </>
