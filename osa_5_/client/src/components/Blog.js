@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import blogServices from "../services/blogs";
 
-const Blog = ({ blog, fetchBlogs }) => {
+const Blog = ({ blog, fetchBlogs, user }) => {
   const blogStyle = {
     border: "solid",
     borderWidth: "thin",
     padding: "8px",
     margin: "8px 0px 8px 0px"
   };
-
   const [isVisible, setIsVisible] = useState(false);
   const [likes, setLikes] = useState(blog.likes);
 
@@ -48,7 +47,9 @@ const Blog = ({ blog, fetchBlogs }) => {
           <br />
           {`Added by ${blog.user.username}`}
           <br />
-          <button onClick={onRemoveButtonClick}>remove</button>
+          {blog.user.username === user.username ? (
+            <button onClick={onRemoveButtonClick}>remove</button>
+          ) : null}
         </>
       ) : null}
     </div>
