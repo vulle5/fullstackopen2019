@@ -4,9 +4,11 @@ import Blog from "./Blog";
 const BlogList = ({ blogs }) => {
   return (
     <div>
-      {blogs.map(blog => (
-        <Blog blog={blog} key={blog.id} />
-      ))}
+      {blogs
+        .sort((a, b) => b.likes - a.likes)
+        .map(blog => (
+          <Blog blog={blog} key={blog.id} />
+        ))}
     </div>
   );
 };
