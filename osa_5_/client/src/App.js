@@ -5,6 +5,7 @@ import BlogList from "./components/BlogList";
 import LogoutButton from "./components/LogoutButton";
 import CreateBlog from "./components/CreateBlog";
 import BannerMessage from "./components/BannerMessage";
+import Togglable from "./components/Togglable";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -104,7 +105,9 @@ function App() {
         loginForm()
       ) : (
         <>
-          <CreateBlog token={user.token} onCreate={onCreate} />
+          <Togglable buttonLabel={"new note"}>
+            <CreateBlog token={user.token} onCreate={onCreate} />
+          </Togglable>
           <BlogList fetchBlogs={fetchBlogs} blogs={blogs} />
         </>
       )}
