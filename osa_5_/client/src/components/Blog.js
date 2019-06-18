@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import blogServices from "../services/blogs";
+
 const Blog = ({ blog }) => {
   const blogStyle = {
     border: "solid",
@@ -8,6 +10,19 @@ const Blog = ({ blog }) => {
   };
 
   const [isVisible, setIsVisible] = useState(false);
+  const [likes, setLikes] = useState(blog.likes);
+
+  const onButtonClick = async e => {
+    e.stopPropagation();
+    const newBlog = blog;
+    newBlog.likes++;
+    try {
+      setLikes(likes + 1);
+      await blogServices.update(newBlog, newBlog.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div style={blogStyle} onClick={() => setIsVisible(!isVisible)}>
@@ -17,7 +32,7 @@ const Blog = ({ blog }) => {
           <br />
           {blog.url}
           <br />
-          {`${blog.likes} likes`} <button>like</button>
+          {`${likes} likes`} <button onClick={onButtonClick}>like</button>
           <br />
           {`Added by ${blog.user.username}`}
         </>

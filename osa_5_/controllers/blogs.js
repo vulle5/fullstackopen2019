@@ -69,21 +69,37 @@ blogRoutes.delete("/:id", async (request, response) => {
   }
 });
 
-blogRoutes.put("/:id", (request, response) => {
+blogRoutes.put("/:id", async (request, response) => {
   const body = request.body;
+  const token = request.token;
 
-  const blog = {
-    title: body.title,
-    author: body.author,
-    url: body.url,
-    likes: body.likes
-  };
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!token || !decodedToken.id) {
+      return response.status(401).json({ error: "token missing or invalid" });
+    }
 
-  Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
-    .then(updatedBlog => {
-      response.json(updatedBlog.toJSON());
-    })
-    .catch(error => console.log(error));
+    const user = await User.findById(decodedToken.id);
+
+    const blog = {
+      title: body.title,
+      author: body.author,
+      url: body.url,
+      likes: body.likes,
+      user: user._id
+    };
+
+    const result = await Blog.findByIdAndUpdate(request.params.id, blog, {
+      new: true
+    });
+    if (result) {
+      response.status(200).json(result.toJSON());
+    } else {
+      response.status(404).end();
+    }
+  } catch (error) {
+    response.status(400).json(error);
+  }
 });
 
 module.exports = blogRoutes;
