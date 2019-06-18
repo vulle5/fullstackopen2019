@@ -7,7 +7,7 @@ import CreateBlog from "./components/CreateBlog";
 import BannerMessage from "./components/BannerMessage";
 import Togglable from "./components/Togglable";
 
-function App() {
+const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [bannerMessage, setBannerMessage] = useState(null);
@@ -20,6 +20,7 @@ function App() {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
+      fetchBlogs();
     }
   }, []);
 
@@ -108,11 +109,11 @@ function App() {
           <Togglable buttonLabel={"new note"}>
             <CreateBlog token={user.token} onCreate={onCreate} />
           </Togglable>
-          <BlogList fetchBlogs={fetchBlogs} blogs={blogs} />
+          <BlogList blogs={blogs} />
         </>
       )}
     </div>
   );
-}
+};
 
 export default App;

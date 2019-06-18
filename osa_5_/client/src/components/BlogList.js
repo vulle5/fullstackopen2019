@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Blog from "./Blog";
 
-const BlogList = ({ fetchBlogs, blogs }) => {
-  useEffect(() => {
-    fetchBlogs();
-  }, [fetchBlogs]);
-
+const BlogList = ({ blogs }) => {
+  console.log(blogs);
   return (
     <div>
       {blogs.map(blog => (
