@@ -36,7 +36,11 @@ const Blog = ({ blog, fetchBlogs, user }) => {
   }
 
   return (
-    <div style={blogStyle} onClick={() => setIsVisible(!isVisible)}>
+    <div
+      style={blogStyle}
+      onClick={() => setIsVisible(!isVisible)}
+      className="blogDiv"
+    >
       {blog.title} {blog.author}
       {isVisible ? (
         <>
