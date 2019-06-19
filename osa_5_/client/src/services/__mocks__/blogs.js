@@ -1,5 +1,6 @@
 const notes = [
   {
+    id: '1',
     likes: 12,
     title: 'Elixir',
     author: 'Hän',
@@ -11,6 +12,7 @@ const notes = [
     }
   },
   {
+    id: '2',
     likes: 12,
     title: 'Java',
     author: 'Minä',
@@ -22,6 +24,7 @@ const notes = [
     }
   },
   {
+    id: '3',
     likes: 12,
     title: 'JavaScript',
     author: 'Sinä',
