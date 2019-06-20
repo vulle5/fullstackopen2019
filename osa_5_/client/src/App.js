@@ -50,8 +50,8 @@ const App = () => {
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
       blogService.setToken(user.token)
       setUser(user)
-      username.clear()
-      password.clear()
+      username.reset()
+      password.reset()
     } catch (exception) {
       setTimeout(() => {
         setBannerMessage(null)

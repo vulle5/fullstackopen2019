@@ -1,27 +1,29 @@
-import React, { useState } from 'react'
+/* eslint-disable no-unused-vars */
+import React from 'react'
 import blogService from '../services/blogs'
+import { useField } from '../hooks/index'
 
 const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setURL] = useState('')
+  const { reset: resetTitle, ...title } = useField('text')
+  const { reset: resetAuthor, ...author } = useField('text')
+  const { reset: resetUrl, ...url } = useField('text')
 
   const handleSubmit = async event => {
     event.preventDefault()
 
     const blogObject = {
-      title: title,
-      author: author,
-      url: url
+      title: title.value,
+      author: author.value,
+      url: url.value
     }
 
     try {
       blogService.setToken(token)
       await blogService.create(blogObject)
-      onCreate(title, author)
-      setTitle('')
-      setAuthor('')
-      setURL('')
+      onCreate(title.value, author.value)
+      resetTitle()
+      resetAuthor()
+      resetUrl()
       await fetchBlogs()
     } catch (error) {
       console.log(error)
@@ -34,30 +36,15 @@ const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
       <form onSubmit={handleSubmit}>
         <div>
           title
-          <input
-            type="text"
-            value={title}
-            name="Title"
-            onChange={({ target }) => setTitle(target.value)}
-          />
+          <input {...title} />
         </div>
         <div>
           author
-          <input
-            type="text"
-            value={author}
-            name="Author"
-            onChange={({ target }) => setAuthor(target.value)}
-          />
+          <input {...author} />
         </div>
         <div>
           url
-          <input
-            type="text"
-            value={url}
-            name="URL"
-            onChange={({ target }) => setURL(target.value)}
-          />
+          <input {...url} />
         </div>
         <button type="submit">create</button>
       </form>
