@@ -9,12 +9,15 @@ const AnecdoteForm = ({ store }) => {
   };
 
   return (
-    <form onSubmit={onFormSubmit}>
-      <div>
-        <input name="anecdote" />
-      </div>
-      <button>create</button>
-    </form>
+    <>
+      <h2>create new</h2>
+      <form onSubmit={onFormSubmit}>
+        <div>
+          <input name="anecdote" />
+        </div>
+        <button>create</button>
+      </form>
+    </>
   );
 };
 
