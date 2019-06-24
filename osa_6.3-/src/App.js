@@ -9,6 +9,7 @@ const App = () => {
     <div>
       <h2>Anecdotes</h2>
       <Filter />
+      <Notification />
       <AnecdoteForm />
       <AnecdoteList />
     </div>

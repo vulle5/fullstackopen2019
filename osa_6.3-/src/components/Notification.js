@@ -1,8 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const Notification = ({ store }) => {
-  const { notification } = store.getState();
-  const visible = notification === "" && { display: "none" };
+const Notification = props => {
+  const visible = props.notification === "" && { display: "none" };
 
   const style = {
     border: "solid",
@@ -10,8 +10,19 @@ const Notification = ({ store }) => {
     borderWidth: 1
   };
   return (
-    <div style={{ ...style, ...visible }}>{`You voted '${notification}'`}</div>
+    <div style={{ ...style, ...visible }}>{`You voted '${
+      props.notification
+    }'`}</div>
   );
 };
 
-export default Notification;
+const mapStateToProps = state => {
+  return {
+    notification: state.notification
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Notification);
