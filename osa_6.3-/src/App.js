@@ -4,7 +4,6 @@ import AnecdoteList from "./components/AnecdoteList";
 import Notification from "./components/Notification";
 
 const App = ({ store }) => {
-  console.log("STORE: ", store.getState());
   return (
     <div>
       <h2>Anecdotes</h2>
