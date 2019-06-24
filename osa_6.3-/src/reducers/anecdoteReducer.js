@@ -17,6 +17,7 @@ const asObject = anecdote => {
   };
 };
 
+// Action creators
 export const incrementVote = id => {
   return {
     type: "INCREMENT",
