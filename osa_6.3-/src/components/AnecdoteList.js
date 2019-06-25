@@ -8,7 +8,7 @@ import {
 
 const AnecdoteList = props => {
   const onVoteClick = anecdote => {
-    props.incrementVote(anecdote.id);
+    props.incrementVote(anecdote);
     props.showNotification(anecdote.content);
     setTimeout(() => props.closeNotification(), 5000);
   };
