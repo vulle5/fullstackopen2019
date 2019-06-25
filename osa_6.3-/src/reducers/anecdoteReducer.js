@@ -3,10 +3,10 @@ import anecdoteService from "../services/anecdotes";
 // Action creators
 export const incrementVote = anecdote => {
   return async dispatch => {
-    await anecdoteService.update(anecdote);
+    const response = await anecdoteService.update(anecdote);
     dispatch({
       type: "INCREMENT",
-      data: { id: anecdote.id }
+      data: { id: response.id }
     });
   };
 };
