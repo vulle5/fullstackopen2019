@@ -9,11 +9,7 @@ const Notification = props => {
     padding: 10,
     borderWidth: 1
   };
-  return (
-    <div style={{ ...style, ...visible }}>{`You voted '${
-      props.notification
-    }'`}</div>
-  );
+  return <div style={{ ...style, ...visible }}>{props.notification}</div>;
 };
 
 const mapStateToProps = state => {

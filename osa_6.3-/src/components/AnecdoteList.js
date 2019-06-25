@@ -2,15 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { incrementVote } from "../reducers/anecdoteReducer";
 import {
-  showNotification,
+  setNotification,
   closeNotification
 } from "../reducers/notificationReducer";
 
 const AnecdoteList = props => {
   const onVoteClick = anecdote => {
     props.incrementVote(anecdote);
-    props.showNotification(anecdote.content);
-    setTimeout(() => props.closeNotification(), 5000);
+    props.setNotification(`You voted ${anecdote.content}`, 5);
   };
 
   return (
@@ -48,8 +47,8 @@ const mapDispatchToProps = dispatch => {
     incrementVote: value => {
       dispatch(incrementVote(value));
     },
-    showNotification: value => {
-      dispatch(showNotification(value));
+    setNotification: (value, seconds) => {
+      dispatch(setNotification(value, seconds));
     },
     closeNotification: () => {
       dispatch(closeNotification());

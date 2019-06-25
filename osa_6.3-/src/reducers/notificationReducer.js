@@ -1,9 +1,14 @@
 const initialState = "";
 
-export const showNotification = message => {
-  return {
-    type: "OPEN",
-    data: message
+export const setNotification = (message, seconds) => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(closeNotification());
+    }, seconds * 1000);
+    dispatch({
+      type: "OPEN",
+      data: message
+    });
   };
 };
 
