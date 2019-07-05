@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Link, withRouter } from "react-router-dom";
 
 const Menu = () => {
   const padding = {
@@ -79,7 +79,7 @@ const Footer = () => (
   </div>
 );
 
-const CreateNew = props => {
+const CreateNew = withRouter(props => {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [info, setInfo] = useState("");
@@ -92,6 +92,7 @@ const CreateNew = props => {
       info,
       votes: 0
     });
+    props.history.push("/");
   };
 
   return (
@@ -126,7 +127,7 @@ const CreateNew = props => {
       </form>
     </div>
   );
-};
+});
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -151,6 +152,10 @@ const App = () => {
   const addNew = anecdote => {
     anecdote.id = (Math.random() * 10000).toFixed(0);
     setAnecdotes(anecdotes.concat(anecdote));
+    setNotification(`a new anecdote ${anecdote.content} created!`);
+    setTimeout(() => {
+      setNotification("");
+    }, 10000);
   };
 
   const anecdoteById = id => anecdotes.find(a => a.id === id);
@@ -171,6 +176,7 @@ const App = () => {
       <BrowserRouter>
         <h1>Software anecdotes</h1>
         <Menu />
+        <div>{notification}</div>
         <Route
           exact
           path="/"
