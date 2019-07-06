@@ -1,0 +1,81 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are awesome!",
+      "id": 1
+    },
+    {
+      "content": "best feature ever <3",
+      "id": 2
+    },
+    {
+      "content": "Hello",
+      "id": 3
+    },
+    {
+      "content": "tyhgtjkhgjkhgjkh",
+      "id": 4
+    },
+    {
+      "content": "fjsadöklfjklsdkfjsladökjflöklfdsajkfsadfaf",
+      "id": 5
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "Minä",
+      "number": "050-12343243",
+      "id": 2
+    },
+    {
+      "name": "sdadsaddsadsa",
+      "number": "3e21323213",
+      "id": 3
+    },
+    {
+      "name": "sdasdsafdrfsfdf",
+      "number": "3424324234",
+      "id": 4
+    },
+    {
+      "name": "4321321321",
+      "number": "321321321321",
+      "id": 5
+    },
+    {
+      "name": "3213213213",
+      "number": "53254543534",
+      "id": 6
+    },
+    {
+      "name": "5325435435",
+      "number": "sdasdsadasds",
+      "id": 7
+    },
+    {
+      "name": "231321321",
+      "number": "4sadasdsad",
+      "id": 8
+    },
+    {
+      "name": "dfsfdsfsd",
+      "number": "fadsfsdafafsdafsda",
+      "id": 9
+    },
+    {
+      "name": "423423423",
+      "number": "sadsadsadasd",
+      "id": 10
+    },
+    {
+      "name": "4i239i490328i4902384",
+      "number": "4i903289438i29048i23",
+      "id": 11
+    }
+  ]
+}
