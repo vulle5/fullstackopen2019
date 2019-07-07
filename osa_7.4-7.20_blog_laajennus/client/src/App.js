@@ -41,9 +41,9 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
       ) : (
         <>
           <Togglable buttonLabel={'new note'}>
-            <CreateBlog token={user.token} />
+            <CreateBlog />
           </Togglable>
-          <BlogList user={user} />
+          <BlogList />
         </>
       )}
     </div>

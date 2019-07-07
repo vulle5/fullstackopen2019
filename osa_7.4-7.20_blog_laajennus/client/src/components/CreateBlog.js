@@ -63,7 +63,13 @@ const CreateBlog = ({ token, initializeBlogs, addBlog, bannerChange }) => {
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    token: state.user.token
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { initializeBlogs, addBlog, bannerChange }
 )(CreateBlog)

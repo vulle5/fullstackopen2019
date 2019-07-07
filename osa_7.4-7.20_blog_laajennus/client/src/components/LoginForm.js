@@ -20,8 +20,6 @@ const LoginForm = ({ bannerChange, initializeUser }) => {
         username: nameValue,
         password: passValue
       })
-      username.reset()
-      password.reset()
     } catch (exception) {
       console.log(exception)
       bannerChange('Wrong username or password', 'error')

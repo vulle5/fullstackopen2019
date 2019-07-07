@@ -11,7 +11,6 @@ export const initializeUser = (user, config) => {
   } else if (config) {
     return async dispatch => {
       const response = await loginService.login(config)
-      console.log(response)
       dispatch({
         type: 'INIT_USER',
         data: response
