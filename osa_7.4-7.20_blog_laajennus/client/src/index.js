@@ -8,10 +8,12 @@ import App from './App'
 import './index.css'
 import bannerReducer from './reducers/bannerReducer'
 import blogReducer from './reducers/blogsReducer'
+import userReducer from './reducers/userReducer'
 
 const reducer = combineReducers({
   banner: bannerReducer,
-  blogs: blogReducer
+  blogs: blogReducer,
+  user: userReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

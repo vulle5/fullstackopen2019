@@ -9,7 +9,6 @@ const BannerMessage = ({ banner }) => {
   return <div className={banner[0]}>{banner[1]}</div>
 }
 const mapStateToProps = state => {
-  console.log(state)
   return {
     banner: state.banner
   }

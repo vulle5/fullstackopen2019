@@ -1,7 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const LogoutButton = ({ onLogout }) => {
-  return <button onClick={onLogout}>logout</button>
+import { initializeUser } from '../reducers/userReducer'
+
+const LogoutButton = ({ initializeUser }) => {
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedBlogAppUser')
+    initializeUser(null)
+  }
+
+  return <button onClick={handleLogout}>logout</button>
 }
 
-export default LogoutButton
+export default connect(
+  null,
+  { initializeUser }
+)(LogoutButton)

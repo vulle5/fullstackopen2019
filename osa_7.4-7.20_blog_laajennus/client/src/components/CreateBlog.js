@@ -8,9 +8,9 @@ import blogService from '../services/blogs'
 import { useField } from '../hooks/index'
 
 const CreateBlog = ({ token, initializeBlogs, addBlog, bannerChange }) => {
-  const { reset: resetTitle, ...title } = useField('text')
-  const { reset: resetAuthor, ...author } = useField('text')
-  const { reset: resetUrl, ...url } = useField('text')
+  const [title, resetTitle] = useField('text')
+  const [author, resetAuthor] = useField('text')
+  const [url, resetUrl] = useField('text')
 
   const onCreate = (title, author) => {
     bannerChange(`a new blog ${title} by ${author} added`, 'success')
