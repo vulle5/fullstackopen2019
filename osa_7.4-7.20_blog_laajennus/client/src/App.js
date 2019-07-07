@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+
+import { bannerChange } from './reducers/bannerReducer'
 import loginService from './services/login'
 import blogService from './services/blogs'
 import { useField } from './hooks/index'
@@ -9,11 +12,9 @@ import BannerMessage from './components/BannerMessage'
 import Togglable from './components/Togglable'
 import LoginForm from './components/LoginForm'
 
-const App = () => {
+const App = ({ bannerChange }) => {
   const username = useField('text')
   const password = useField('password')
-  const [bannerMessage, setBannerMessage] = useState(null)
-  const [bannerType, setBannerType] = useState('success')
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
 
@@ -53,11 +54,10 @@ const App = () => {
       username.reset()
       password.reset()
     } catch (exception) {
+      bannerChange('Wrong username or password', 'error')
       setTimeout(() => {
-        setBannerMessage(null)
+        bannerChange([])
       }, 5000)
-      setBannerMessage('Wrong username or password')
-      setBannerType('error')
     }
   }
 
@@ -67,18 +67,17 @@ const App = () => {
   }
 
   const onCreate = (title, author) => {
+    bannerChange(`a new blog ${title} by ${author} added`, 'success')
     setTimeout(() => {
-      setBannerMessage(null)
+      bannerChange([])
     }, 5000)
-    setBannerMessage(`a new blog ${title} by ${author} added`)
-    setBannerType('success')
   }
 
   return (
     <div className="App">
       <h2>{user === null ? 'login to application' : 'blogs'}</h2>
       {user !== null && <LogoutButton onLogout={handleLogout} />}
-      <BannerMessage message={bannerMessage} type={bannerType} />
+      <BannerMessage />
       <p>{user !== null && `${user.name} logged in`}</p>
 
       {user === null ? (
@@ -103,4 +102,7 @@ const App = () => {
   )
 }
 
-export default App
+export default connect(
+  null,
+  { bannerChange }
+)(App)

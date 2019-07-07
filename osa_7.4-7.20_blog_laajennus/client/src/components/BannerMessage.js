@@ -1,11 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const BannerMessage = ({ type, message }) => {
-  if (message === null) {
+const BannerMessage = ({ banner }) => {
+  if (banner.length === 0) {
     return null
   }
 
-  return <div className={type}>{message}</div>
+  return <div className={banner[0]}>{banner[1]}</div>
+}
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    banner: state.banner
+  }
 }
 
-export default BannerMessage
+export default connect(mapStateToProps)(BannerMessage)
