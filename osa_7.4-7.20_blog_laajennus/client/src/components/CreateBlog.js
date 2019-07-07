@@ -1,12 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
+import { connect } from 'react-redux'
+
+import { bannerChange } from '../reducers/bannerReducer'
+import { initializeBlogs, addBlog } from '../reducers/blogsReducer'
 import blogService from '../services/blogs'
 import { useField } from '../hooks/index'
 
-const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
+const CreateBlog = ({ token, initializeBlogs, addBlog, bannerChange }) => {
   const { reset: resetTitle, ...title } = useField('text')
   const { reset: resetAuthor, ...author } = useField('text')
   const { reset: resetUrl, ...url } = useField('text')
+
+  const onCreate = (title, author) => {
+    bannerChange(`a new blog ${title} by ${author} added`, 'success')
+    setTimeout(() => {
+      bannerChange([])
+    }, 5000)
+  }
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -19,12 +30,12 @@ const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
 
     try {
       blogService.setToken(token)
-      await blogService.create(blogObject)
+      await addBlog(blogObject)
       onCreate(title.value, author.value)
       resetTitle()
       resetAuthor()
       resetUrl()
-      await fetchBlogs()
+      await initializeBlogs()
     } catch (error) {
       console.log(error)
     }
@@ -52,4 +63,7 @@ const CreateBlog = ({ token, onCreate, fetchBlogs }) => {
   )
 }
 
-export default CreateBlog
+export default connect(
+  null,
+  { initializeBlogs, addBlog, bannerChange }
+)(CreateBlog)

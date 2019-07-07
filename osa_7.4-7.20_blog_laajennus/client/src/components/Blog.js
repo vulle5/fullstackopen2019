@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
-import blogServices from '../services/blogs'
+import { connect } from 'react-redux'
+import {
+  initializeBlogs,
+  deleteBlog,
+  incrementVote
+} from '../reducers/blogsReducer'
 
-const Blog = ({ blog, fetchBlogs, user }) => {
+const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
   const blogStyle = {
     border: 'solid',
     borderWidth: 'thin',
@@ -9,15 +14,13 @@ const Blog = ({ blog, fetchBlogs, user }) => {
     margin: '8px 0px 8px 0px'
   }
   const [isVisible, setIsVisible] = useState(false)
-  const [likes, setLikes] = useState(blog.likes)
 
   const onLikeButtonClick = async e => {
     e.stopPropagation()
     const newBlog = blog
     newBlog.likes++
     try {
-      setLikes(likes + 1)
-      await blogServices.update(newBlog, newBlog.id)
+      await incrementVote(newBlog, newBlog.id)
     } catch (error) {
       console.log(error)
     }
@@ -27,8 +30,8 @@ const Blog = ({ blog, fetchBlogs, user }) => {
     e.stopPropagation()
     try {
       if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-        await blogServices.deleteBlog(blog.id)
-        await fetchBlogs()
+        await deleteBlog(blog.id)
+        await initializeBlogs()
       }
     } catch (error) {
       console.log(error)
@@ -47,7 +50,8 @@ const Blog = ({ blog, fetchBlogs, user }) => {
           <br />
           {blog.url}
           <br />
-          {`${likes} likes`} <button onClick={onLikeButtonClick}>like</button>
+          {`${blog.likes} likes`}{' '}
+          <button onClick={onLikeButtonClick}>like</button>
           <br />
           {`Added by ${blog.user.username}`}
           <br />
@@ -60,4 +64,7 @@ const Blog = ({ blog, fetchBlogs, user }) => {
   )
 }
 
-export default Blog
+export default connect(
+  null,
+  { initializeBlogs, deleteBlog, incrementVote }
+)(Blog)

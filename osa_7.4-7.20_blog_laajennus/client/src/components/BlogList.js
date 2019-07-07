@@ -1,16 +1,24 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import Blog from './Blog'
 
-const BlogList = ({ blogs, fetchBlogs, user }) => {
+const BlogList = ({ blogs, user }) => {
   return (
     <div>
       {blogs
         .sort((a, b) => b.likes - a.likes)
         .map(blog => (
-          <Blog blog={blog} key={blog.id} fetchBlogs={fetchBlogs} user={user} />
+          <Blog blog={blog} key={blog.id} user={user} />
         ))}
     </div>
   )
 }
 
-export default BlogList
+const mapStateToProps = state => {
+  return {
+    blogs: state.blogs
+  }
+}
+
+export default connect(mapStateToProps)(BlogList)

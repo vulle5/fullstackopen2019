@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { bannerChange } from './reducers/bannerReducer'
+import { initializeBlogs } from './reducers/blogsReducer'
 import loginService from './services/login'
 import blogService from './services/blogs'
 import { useField } from './hooks/index'
@@ -12,10 +13,9 @@ import BannerMessage from './components/BannerMessage'
 import Togglable from './components/Togglable'
 import LoginForm from './components/LoginForm'
 
-const App = ({ bannerChange }) => {
+const App = ({ bannerChange, initializeBlogs }) => {
   const username = useField('text')
   const password = useField('password')
-  const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -23,19 +23,9 @@ const App = ({ bannerChange }) => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
-      fetchBlogs()
+      initializeBlogs()
     }
-  }, [])
-
-  const fetchBlogs = async () => {
-    try {
-      const blogsFromDb = await blogService.getAll()
-      setBlogs(blogsFromDb)
-    } catch (error) {
-      console.log(error)
-      return 'Failed to get blogs'
-    }
-  }
+  }, [initializeBlogs])
 
   const handleLogin = async event => {
     event.preventDefault()
@@ -66,13 +56,6 @@ const App = ({ bannerChange }) => {
     setUser(null)
   }
 
-  const onCreate = (title, author) => {
-    bannerChange(`a new blog ${title} by ${author} added`, 'success')
-    setTimeout(() => {
-      bannerChange([])
-    }, 5000)
-  }
-
   return (
     <div className="App">
       <h2>{user === null ? 'login to application' : 'blogs'}</h2>
@@ -89,13 +72,9 @@ const App = ({ bannerChange }) => {
       ) : (
         <>
           <Togglable buttonLabel={'new note'}>
-            <CreateBlog
-              token={user.token}
-              onCreate={onCreate}
-              fetchBlogs={fetchBlogs}
-            />
+            <CreateBlog token={user.token} />
           </Togglable>
-          <BlogList blogs={blogs} fetchBlogs={fetchBlogs} user={user} />
+          <BlogList user={user} />
         </>
       )}
     </div>
@@ -104,5 +83,5 @@ const App = ({ bannerChange }) => {
 
 export default connect(
   null,
-  { bannerChange }
+  { bannerChange, initializeBlogs }
 )(App)

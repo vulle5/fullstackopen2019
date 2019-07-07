@@ -1,17 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, combineReducers } from 'redux'
+import thunk from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 
 import App from './App'
 import './index.css'
 import bannerReducer from './reducers/bannerReducer'
+import blogReducer from './reducers/blogsReducer'
 
 const reducer = combineReducers({
-  banner: bannerReducer
+  banner: bannerReducer,
+  blogs: blogReducer
 })
 
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store={store}>
