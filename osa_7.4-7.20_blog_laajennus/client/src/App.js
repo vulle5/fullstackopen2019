@@ -9,6 +9,7 @@ import blogService from './services/blogs'
 import BlogView from './components/BlogView'
 import UsersView from './components/UsersView'
 import User from './components/User'
+import SingleBlog from './components/SingleBlog'
 
 const App = ({ user, initializeBlogs, initializeUser }) => {
   useEffect(() => {
@@ -33,6 +34,10 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
       <p>{user !== null && `${user.name} logged in`}</p>
       <Router>
         <Route exact path="/" render={() => <BlogView />} />
+        <Route
+          path="/blogs/:id"
+          render={({ match }) => <SingleBlog id={match.params.id} />}
+        />
         <Route exact path="/users" render={() => <UsersView />} />
         <Route
           path="/users/:id"

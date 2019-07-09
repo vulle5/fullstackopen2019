@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import {
   initializeBlogs,
   deleteBlog,
@@ -17,8 +18,7 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
 
   const onLikeButtonClick = async e => {
     e.stopPropagation()
-    const newBlog = blog
-    newBlog.likes++
+    const newBlog = { ...blog, likes: blog.likes + 1 }
     try {
       await incrementVote(newBlog, newBlog.id)
     } catch (error) {
@@ -44,7 +44,9 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
       onClick={() => setIsVisible(!isVisible)}
       className="blogDiv"
     >
-      {blog.title} {blog.author}
+      <Link to={`/blogs/${blog.id}`}>
+        {blog.title} {blog.author}
+      </Link>
       {isVisible ? (
         <>
           <br />

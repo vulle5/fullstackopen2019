@@ -13,6 +13,8 @@ export const deleteBlog = blog => {
 }
 
 export const incrementVote = (blog, id) => {
+  console.log(blog)
+  console.log(id)
   return async dispatch => {
     const response = await blogService.update(blog, id)
     dispatch({
@@ -53,7 +55,7 @@ const blogReducer = (state = initialState, action) => {
     const blogToVote = state.find(a => a.id === id)
     const changedBlog = {
       ...blogToVote,
-      votes: blogToVote.votes + 1
+      likes: blogToVote.likes + 1
     }
     return state.map(blog => (blog.id !== id ? blog : changedBlog))
   }
