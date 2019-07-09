@@ -8,6 +8,7 @@ import { initializeUser } from './reducers/userReducer'
 import blogService from './services/blogs'
 import BlogView from './components/BlogView'
 import UsersView from './components/UsersView'
+import User from './components/User'
 
 const App = ({ user, initializeBlogs, initializeUser }) => {
   useEffect(() => {
@@ -32,7 +33,11 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
       <p>{user !== null && `${user.name} logged in`}</p>
       <Router>
         <Route exact path="/" render={() => <BlogView />} />
-        <Route path="/users" render={() => <UsersView />} />
+        <Route exact path="/users" render={() => <UsersView />} />
+        <Route
+          path="/users/:id"
+          render={({ match }) => <User id={match.params.id} />}
+        />
       </Router>
     </div>
   )
