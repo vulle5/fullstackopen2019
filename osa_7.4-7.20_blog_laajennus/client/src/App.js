@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { bannerChange } from './reducers/bannerReducer'
 import { initializeBlogs } from './reducers/blogsReducer'
 import { initializeUser } from './reducers/userReducer'
 import blogService from './services/blogs'
-import BlogList from './components/BlogList'
-import LogoutButton from './components/LogoutButton'
-import CreateBlog from './components/CreateBlog'
-import BannerMessage from './components/BannerMessage'
-import Togglable from './components/Togglable'
-import LoginForm from './components/LoginForm'
+import BlogView from './components/BlogView'
+import UsersView from './components/UsersView'
 
 const App = ({ user, initializeBlogs, initializeUser }) => {
   useEffect(() => {
@@ -32,25 +29,17 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
   return (
     <div className="App">
       <h2>{user === null ? 'login to application' : 'blogs'}</h2>
-      {user !== null && <LogoutButton />}
-      <BannerMessage />
       <p>{user !== null && `${user.name} logged in`}</p>
-
-      {user === null ? (
-        <LoginForm />
-      ) : (
-        <>
-          <Togglable buttonLabel={'new note'}>
-            <CreateBlog />
-          </Togglable>
-          <BlogList />
-        </>
-      )}
+      <Router>
+        <Route exact path="/" render={() => <BlogView />} />
+        <Route path="/users" render={() => <UsersView />} />
+      </Router>
     </div>
   )
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
     user: state.user
   }
