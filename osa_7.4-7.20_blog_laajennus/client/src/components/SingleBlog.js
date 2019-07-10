@@ -30,6 +30,12 @@ const SingleBlog = ({ blog, incrementVote }) => {
             <button onClick={onLikeButtonClick}>like</button>
           </div>
           <div>{`added by ${blog.user.name}`}</div>
+          <h3>comments</h3>
+          <ul>
+            {blog.comment !== 0
+              ? blog.comments.map((comment, i) => <li key={i}>{comment}</li>)
+              : 'No comments'}
+          </ul>
         </>
       ) : null}
     </div>
