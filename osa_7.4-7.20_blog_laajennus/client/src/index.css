@@ -22,3 +22,25 @@
 td {
   padding: 0px 8px 0px 0px
 }
+
+nav {
+  border-bottom: 1px solid black;
+}
+
+.crumbs ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.crumb {
+  display: inline-block;
+  padding: 0 3px;
+}
+
+.crumb a::after {
+  display: inline-block;
+  color: #000;
+  content: ' ';
+  font-size: 80%;
+  font-weight: bold;
+}

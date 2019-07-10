@@ -10,6 +10,7 @@ import BlogView from './components/BlogView'
 import UsersView from './components/UsersView'
 import User from './components/User'
 import SingleBlog from './components/SingleBlog'
+import Navigation from './components/Navigation'
 
 const App = ({ user, initializeBlogs, initializeUser }) => {
   useEffect(() => {
@@ -30,9 +31,9 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
 
   return (
     <div className="App">
-      <h2>{user === null ? 'login to application' : 'blogs'}</h2>
-      <p>{user !== null && `${user.name} logged in`}</p>
       <Router>
+        <Navigation />
+        <h2>{user === null ? 'login to application' : 'blogs'}</h2>
         <Route exact path="/" render={() => <BlogView />} />
         <Route
           path="/blogs/:id"

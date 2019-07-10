@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import BlogList from './BlogList'
-import LogoutButton from './LogoutButton'
 import CreateBlog from './CreateBlog'
 import BannerMessage from './BannerMessage'
 import Togglable from './Togglable'
@@ -11,7 +10,6 @@ import LoginForm from './LoginForm'
 const BlogView = ({ user }) => {
   return (
     <>
-      {user !== null && <LogoutButton />}
       <BannerMessage />
       {user === null ? (
         <LoginForm />
