@@ -32,9 +32,11 @@ const SingleBlog = ({ blog, incrementVote }) => {
           <div>{`added by ${blog.user.name}`}</div>
           <h3>comments</h3>
           <ul>
-            {blog.comment !== 0
-              ? blog.comments.map((comment, i) => <li key={i}>{comment}</li>)
-              : 'No comments'}
+            {blog.comments.length !== 0 ? (
+              blog.comments.map((comment, i) => <li key={i}>{comment}</li>)
+            ) : (
+              <li>{'No comments'}</li>
+            )}
           </ul>
         </>
       ) : null}
