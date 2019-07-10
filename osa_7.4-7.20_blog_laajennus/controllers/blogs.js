@@ -41,6 +41,45 @@ blogRoutes.post("/", async (request, response) => {
   }
 });
 
+blogRoutes.post("/:id/comments", async (request, response) => {
+  const body = request.body;
+
+  const token = request.token;
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!token || !decodedToken.id) {
+      return response.status(401).json({ error: "token missing or invalid" });
+    }
+
+    const blog = await Blog.findById(request.params.id);
+
+    const newBlog = {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes,
+      user: blog.user,
+      comments: [...blog.comments, body.comment]
+    };
+
+    console.log("old", blog);
+    console.log("new", newBlog);
+
+    const result = await Blog.findByIdAndUpdate(request.params.id, newBlog, {
+      new: true
+    });
+
+    if (result) {
+      response.status(200).json(result.toJSON());
+    } else {
+      response.status(404).end();
+    }
+  } catch (error) {
+    response.status(400).json(error);
+  }
+});
+
 blogRoutes.delete("/:id", async (request, response) => {
   const token = request.token;
 
