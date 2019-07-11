@@ -1,32 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Tabs, Tab } from '@material-ui/core'
 
-import LogoutButton from './LogoutButton'
-
-const Navigation = ({ user }) => {
+const Navigation = ({ value, handleChange }) => {
   return (
     <div>
-      <nav className="crumbs">
-        <ol>
-          <li className="crumb">
-            <Link to="">blogs</Link>
-          </li>
-          <li className="crumb">
-            <Link to="">users</Link>
-          </li>
-          <li className="crumb">{user !== null && `${user.name} logged in`}</li>
-          <li className="crumb">{user !== null && <LogoutButton />}</li>
-        </ol>
-      </nav>
+      <Tabs value={value} onChange={handleChange}>
+        <Tab label="Blogs" component={Link} to="/" />
+        <Tab label="Users" component={Link} to="/users" />
+      </Tabs>
     </div>
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  }
-}
-
-export default connect(mapStateToProps)(Navigation)
+export default Navigation

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { bannerChange } from './reducers/bannerReducer'
 import { initializeBlogs } from './reducers/blogsReducer'
@@ -10,7 +11,7 @@ import BlogView from './components/BlogView'
 import UsersView from './components/UsersView'
 import User from './components/User'
 import SingleBlog from './components/SingleBlog'
-import Navigation from './components/Navigation'
+import AppBar from './components/AppBar'
 
 const App = ({ user, initializeBlogs, initializeUser }) => {
   useEffect(() => {
@@ -31,8 +32,9 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
 
   return (
     <div className="App">
+      <CssBaseline />
       <Router>
-        <Navigation />
+        <AppBar />
         <h2>{user === null ? 'login to application' : 'blogs'}</h2>
         <Route exact path="/" render={() => <BlogView />} />
         <Route
