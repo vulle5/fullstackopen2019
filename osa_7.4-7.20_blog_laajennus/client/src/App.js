@@ -11,7 +11,7 @@ import BlogView from './components/BlogView'
 import UsersView from './components/UsersView'
 import User from './components/User'
 import SingleBlog from './components/SingleBlog'
-import AppBar from './components/AppBar'
+import NavigationBar from './components/NavigationBar'
 
 const App = ({ user, initializeBlogs, initializeUser }) => {
   useEffect(() => {
@@ -34,8 +34,7 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
     <div className="App">
       <CssBaseline />
       <Router>
-        <AppBar />
-        <h2>{user === null ? 'login to application' : 'blogs'}</h2>
+        <NavigationBar />
         <Route exact path="/" render={() => <BlogView />} />
         <Route
           path="/blogs/:id"
