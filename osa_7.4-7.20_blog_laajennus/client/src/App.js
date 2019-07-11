@@ -20,7 +20,7 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
       const user = JSON.parse(loggedUserJSON)
       initializeUser(user)
     }
-  }, [initializeBlogs, initializeUser])
+  }, [initializeUser])
 
   useEffect(() => {
     if (user !== null) {
