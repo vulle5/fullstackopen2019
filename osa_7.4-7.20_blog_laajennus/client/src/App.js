@@ -19,16 +19,16 @@ const App = ({ user, initializeBlogs, initializeUser }) => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       initializeUser(user)
-      initializeBlogs()
     }
   }, [initializeBlogs, initializeUser])
 
   useEffect(() => {
     if (user !== null) {
+      initializeBlogs()
       window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user))
       blogService.setToken(user.token)
     }
-  }, [user])
+  }, [user, initializeBlogs])
 
   return (
     <div className="App">
