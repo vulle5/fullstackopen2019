@@ -63,9 +63,6 @@ blogRoutes.post("/:id/comments", async (request, response) => {
       comments: [...blog.comments, body.comment]
     };
 
-    console.log("old", blog);
-    console.log("new", newBlog);
-
     const result = await Blog.findByIdAndUpdate(request.params.id, newBlog, {
       new: true
     });
