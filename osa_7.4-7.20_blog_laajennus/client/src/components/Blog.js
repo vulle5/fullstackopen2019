@@ -1,20 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  Typography,
+  IconButton,
+  Button
+} from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import ThumbUp from '@material-ui/icons/ThumbUp'
+import DeleteIcon from '@material-ui/icons/Delete'
+
 import {
   initializeBlogs,
   deleteBlog,
   incrementVote
 } from '../reducers/blogsReducer'
+import { useStyles } from '../useStyles'
 
 const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
-  const blogStyle = {
-    border: 'solid',
-    borderWidth: 'thin',
-    padding: '8px',
-    margin: '8px 0px 8px 0px'
-  }
-  const [isVisible, setIsVisible] = useState(false)
+  const classes = useStyles()
 
   const onLikeButtonClick = async e => {
     e.stopPropagation()
@@ -38,30 +45,80 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
     }
   }
 
+  // <ExpansionPanel>
+  //       <ExpansionPanelSummary
+  //         expandIcon={<ExpandMoreIcon />}
+  //         aria-controls="panel1a-content"
+  //         id="panel1a-header"
+  //       >
+  //         <Typography>Expansion Panel 1</Typography>
+  //       </ExpansionPanelSummary>
+  //       <ExpansionPanelDetails>
+  //         <Typography>
+  //           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+  //           malesuada lacus ex, sit amet blandit leo lobortis eget.
+  //         </Typography>
+  //       </ExpansionPanelDetails>
+  //     </ExpansionPanel>
+
+  // {isVisible ? (
+  //   <>
+  //     <br />
+  //     {blog.url}
+  //     <br />
+  //     {`${blog.likes} likes`}{' '}
+  //     <button onClick={onLikeButtonClick}>like</button>
+  //     <br />
+  //     {`Added by ${blog.user.username}`}
+  //     <br />
+  //     {blog.user.username === user.username ? (
+  //       <button onClick={onRemoveButtonClick}>remove</button>
+  //     ) : null}
+  //   </>
+  // ) : null}
+
   return (
-    <div
-      style={blogStyle}
-      onClick={() => setIsVisible(!isVisible)}
-      className="blogDiv"
-    >
-      <Link to={`/blogs/${blog.id}`}>
-        {blog.title} {blog.author}
-      </Link>
-      {isVisible ? (
-        <>
-          <br />
-          {blog.url}
-          <br />
-          {`${blog.likes} likes`}{' '}
-          <button onClick={onLikeButtonClick}>like</button>
-          <br />
-          {`Added by ${blog.user.username}`}
-          <br />
+    <div className={classes.blogDiv}>
+      <ExpansionPanel>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          classes={{
+            content: classes.blogSummary
+          }}
+        >
+          <Typography className={classes.blogHeading}>
+            <Link to={`/blogs/${blog.id}`}>
+              {blog.title} {blog.author}
+            </Link>
+          </Typography>
+          <Typography className={classes.secondaryHeading}>
+            {blog.url}
+          </Typography>
+          <div className={classes.likeButtonDiv}>
+            <Typography className={classes.likes}>{blog.likes}</Typography>
+            <IconButton onClick={onLikeButtonClick} size="small">
+              <ThumbUp />
+            </IconButton>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          <Typography className={classes.likes}>{`Added by ${
+            blog.user.username
+          }`}</Typography>
           {blog.user.username === user.username ? (
-            <button onClick={onRemoveButtonClick}>remove</button>
+            <Button
+              onClick={onRemoveButtonClick}
+              color="secondary"
+              className={classes.button}
+            >
+              Remove
+              <DeleteIcon className={classes.deleteIcon} />
+            </Button>
           ) : null}
-        </>
-      ) : null}
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     </div>
   )
 }
