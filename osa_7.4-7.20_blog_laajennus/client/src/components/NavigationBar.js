@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
@@ -8,11 +8,6 @@ import { useStyles } from '../useStyles'
 
 const NavigationBar = ({ user }) => {
   const classes = useStyles()
-  const [value, setValue] = useState(0)
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
 
   return (
     <div className={classes.appBar}>
@@ -27,9 +22,7 @@ const NavigationBar = ({ user }) => {
           </Typography>
           {user !== null && <LogoutButton />}
         </Toolbar>
-        {user !== null && (
-          <Navigation value={value} handleChange={handleChange} />
-        )}
+        {user !== null && <Navigation />}
       </AppBar>
     </div>
   )
