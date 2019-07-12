@@ -45,38 +45,6 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
     }
   }
 
-  // <ExpansionPanel>
-  //       <ExpansionPanelSummary
-  //         expandIcon={<ExpandMoreIcon />}
-  //         aria-controls="panel1a-content"
-  //         id="panel1a-header"
-  //       >
-  //         <Typography>Expansion Panel 1</Typography>
-  //       </ExpansionPanelSummary>
-  //       <ExpansionPanelDetails>
-  //         <Typography>
-  //           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-  //           malesuada lacus ex, sit amet blandit leo lobortis eget.
-  //         </Typography>
-  //       </ExpansionPanelDetails>
-  //     </ExpansionPanel>
-
-  // {isVisible ? (
-  //   <>
-  //     <br />
-  //     {blog.url}
-  //     <br />
-  //     {`${blog.likes} likes`}{' '}
-  //     <button onClick={onLikeButtonClick}>like</button>
-  //     <br />
-  //     {`Added by ${blog.user.username}`}
-  //     <br />
-  //     {blog.user.username === user.username ? (
-  //       <button onClick={onRemoveButtonClick}>remove</button>
-  //     ) : null}
-  //   </>
-  // ) : null}
-
   return (
     <div className={classes.blogDiv}>
       <ExpansionPanel>

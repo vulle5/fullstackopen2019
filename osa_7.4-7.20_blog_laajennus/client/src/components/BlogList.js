@@ -8,7 +8,7 @@ const BlogList = ({ blogs, user }) => {
   const classes = useStyles()
 
   return (
-    <div className={classes.blogListRoot}>
+    <div className={classes.divRoot}>
       {blogs
         .sort((a, b) => b.likes - a.likes)
         .map(blog => (

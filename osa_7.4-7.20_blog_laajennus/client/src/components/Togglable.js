@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import { Paper, Button } from '@material-ui/core'
 
 const Togglable = ({ buttonLabel, children }) => {
   const [visible, setVisible] = useState(false)
@@ -12,15 +13,23 @@ const Togglable = ({ buttonLabel, children }) => {
   }
 
   return (
-    <div>
+    <Paper style={{ display: 'inline-block', marginLeft: '8px' }}>
       <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{buttonLabel}</button>
+        <Button onClick={toggleVisibility} variant="contained">
+          {buttonLabel}
+        </Button>
       </div>
       <div style={showWhenVisible} className="togglableContent">
         {children}
-        <button onClick={toggleVisibility}>cancel</button>
+        <Button
+          onClick={toggleVisibility}
+          style={{ margin: '0 8px 8px 8px' }}
+          color="secondary"
+        >
+          cancel
+        </Button>
       </div>
-    </div>
+    </Paper>
   )
 }
 
