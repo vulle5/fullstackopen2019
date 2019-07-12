@@ -6,7 +6,7 @@ const Navigation = ({ location }) => {
   const [value, setValue] = useState(0)
 
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === '/' || location.pathname.includes('blogs')) {
       setValue(0)
     } else {
       setValue(1)

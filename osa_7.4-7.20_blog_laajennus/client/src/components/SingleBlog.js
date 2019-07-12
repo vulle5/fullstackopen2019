@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { incrementVote, addComment } from '../reducers/blogsReducer'
+import { useStyles } from '../useStyles'
 
 const SingleBlog = ({ blog, incrementVote, addComment }) => {
   const [comment, setComment] = useState('')
+  const classes = useStyles()
 
   const onLikeButtonClick = async () => {
     const newBlog = { ...blog, likes: blog.likes + 1 }
@@ -25,7 +27,7 @@ const SingleBlog = ({ blog, incrementVote, addComment }) => {
   }
 
   return (
-    <div>
+    <div className={classes.divRoot}>
       {blog ? (
         <>
           <h2>{blog.title}</h2>
@@ -42,7 +44,11 @@ const SingleBlog = ({ blog, incrementVote, addComment }) => {
           </div>
           <div>{`added by ${blog.user.name}`}</div>
           <h3>comments</h3>
-          <input value={comment} onChange={({ target }) => setComment(target.value)} /><button onClick={handleComment}>add comment</button>
+          <input
+            value={comment}
+            onChange={({ target }) => setComment(target.value)}
+          />
+          <button onClick={handleComment}>add comment</button>
           <ul>
             {blog.comments.length !== 0 ? (
               blog.comments.map((comment, i) => <li key={i}>{comment}</li>)
