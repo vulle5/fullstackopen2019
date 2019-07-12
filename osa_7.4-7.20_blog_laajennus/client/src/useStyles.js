@@ -11,9 +11,6 @@ export const useStyles = makeStyles(theme => ({
   divRoot: {
     margin: theme.spacing(1)
   },
-  blogDiv: {
-    width: '100%'
-  },
   blogSummary: {
     justifyContent: 'space-between',
     paddingRight: theme.typography.pxToRem(15)

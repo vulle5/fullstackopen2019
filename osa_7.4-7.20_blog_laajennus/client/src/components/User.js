@@ -1,9 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useStyles } from '../useStyles'
 
 const User = ({ blogs, name }) => {
+  const classes = useStyles()
+
   return (
-    <div>
+    <div className={classes.divRoot}>
       {blogs.length !== 0 ? (
         <>
           <h2>{name}</h2>

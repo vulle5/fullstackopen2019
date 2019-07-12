@@ -46,8 +46,8 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
   }
 
   return (
-    <div className={classes.blogDiv}>
-      <ExpansionPanel>
+    <>
+      <ExpansionPanel TransitionProps={{ unmountOnExit: true }}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -97,7 +97,7 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
           ) : null}
         </ExpansionPanelDetails>
       </ExpansionPanel>
-    </div>
+    </>
   )
 }
 

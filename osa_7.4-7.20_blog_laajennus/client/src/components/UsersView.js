@@ -3,14 +3,17 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { getUsers } from '../reducers/userListReducer'
+import { useStyles } from '../useStyles'
 
 const UsersView = ({ users, getUsers }) => {
+  const classes = useStyles()
+
   useEffect(() => {
     getUsers()
   }, [getUsers])
 
   return (
-    <div>
+    <div className={classes.divRoot}>
       <h2>Users</h2>
       <table className="user-table">
         <thead>
