@@ -8,6 +8,9 @@ export const useStyles = makeStyles(theme => ({
   appBarTitle: {
     flexGrow: 1
   },
+  blogListRoot: {
+    margin: theme.spacing(1)
+  },
   blogDiv: {
     width: '100%'
   },

@@ -2,10 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Blog from './Blog'
+import { useStyles } from '../useStyles'
 
 const BlogList = ({ blogs, user }) => {
+  const classes = useStyles()
+
   return (
-    <div>
+    <div className={classes.blogListRoot}>
       {blogs
         .sort((a, b) => b.likes - a.likes)
         .map(blog => (
