@@ -58,7 +58,17 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
         >
           <Typography className={classes.blogHeading}>
             <Link to={`/blogs/${blog.id}`}>
-              {blog.title} {blog.author}
+              {blog.title}
+              <Typography
+                style={{
+                  fontStyle: 'italic',
+                  display: 'inline-block',
+                  marginLeft: '4px'
+                }}
+                component="span"
+              >
+                {`by ${blog.author}`}
+              </Typography>
             </Link>
           </Typography>
           <Typography className={classes.secondaryHeading}>
