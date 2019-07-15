@@ -57,7 +57,7 @@ const Blog = ({ blog, user, initializeBlogs, deleteBlog, incrementVote }) => {
           }}
         >
           <Typography className={classes.blogHeading}>
-            <Link to={`/blogs/${blog.id}`}>
+            <Link to={`/blogs/${blog.id}`} id="blog-title">
               {blog.title}
               <Typography
                 style={{

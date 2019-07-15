@@ -52,8 +52,11 @@ const SingleBlog = ({ blog, incrementVote, addComment }) => {
             value={comment}
             placeholder="Write comment"
             onChange={({ target }) => setComment(target.value)}
+            id="comment"
           />
-          <Button onClick={handleComment}>add comment</Button>
+          <Button onClick={handleComment} id="comment-add">
+            add comment
+          </Button>
           <ul>
             {blog.comments.length !== 0 ? (
               blog.comments.map((comment, i) => <li key={i}>{comment}</li>)

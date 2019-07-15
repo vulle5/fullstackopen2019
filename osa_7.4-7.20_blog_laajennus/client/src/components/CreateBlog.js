@@ -48,13 +48,13 @@ const CreateBlog = ({ token, initializeBlogs, addBlog, bannerChange }) => {
       <h2>Create new blog</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <Input {...title} placeholder="Title" />
+          <Input {...title} placeholder="Title" id="title" />
         </div>
         <div>
-          <Input {...author} placeholder="Author" />
+          <Input {...author} placeholder="Author" id="author" />
         </div>
         <div>
-          <Input {...url} placeholder="URL" />
+          <Input {...url} placeholder="URL" id="url" />
         </div>
         <Button type="submit">create</Button>
       </form>
