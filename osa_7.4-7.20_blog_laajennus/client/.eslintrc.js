@@ -23,6 +23,8 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'arrow-spacing': ['error', { before: true, after: true }],
     'no-console': 0,
-    'react/prop-types': 0
+    'react/prop-types': 0,
+    'implicit-arrow-linebreak': 'off',
+    'comma-dangle': 'off'
   }
 }
