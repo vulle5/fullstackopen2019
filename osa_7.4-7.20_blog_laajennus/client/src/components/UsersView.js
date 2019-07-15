@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { getUsers } from '../reducers/userListReducer'
 import { useStyles } from '../useStyles'
+import {
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
+} from '@material-ui/core'
 
 const UsersView = ({ users, getUsers }) => {
   const classes = useStyles()
@@ -15,26 +22,26 @@ const UsersView = ({ users, getUsers }) => {
   return (
     <div className={classes.divRoot}>
       <h2>Users</h2>
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th />
-            <th>Blogs created</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table className="user-table" style={{ maxWidth: '500px' }}>
+        <TableHead>
+          <TableRow>
+            <TableCell />
+            <TableCell>Blogs created</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {users
             ? users.map(user => (
-              <tr key={user.id}>
-                <td>
+              <TableRow key={user.id}>
+                <TableCell>
                   <Link to={`/users/${user.id}`}>{user.name}</Link>
-                </td>
-                <td>{user.blogs.length}</td>
-              </tr>
+                </TableCell>
+                <TableCell>{user.blogs.length}</TableCell>
+              </TableRow>
             ))
             : null}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   )
 }
