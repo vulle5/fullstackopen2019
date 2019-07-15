@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import { incrementVote, addComment } from '../reducers/blogsReducer'
 import { useStyles } from '../useStyles'
+import { Button, IconButton, TextField } from '@material-ui/core'
+import ThumbUp from '@material-ui/icons/ThumbUp'
 
 const SingleBlog = ({ blog, incrementVote, addComment }) => {
   const [comment, setComment] = useState('')
@@ -40,15 +42,18 @@ const SingleBlog = ({ blog, incrementVote, addComment }) => {
           </a>
           <div>
             {`has ${blog.likes} likes`}
-            <button onClick={onLikeButtonClick}>like</button>
+            <IconButton onClick={onLikeButtonClick}>
+              <ThumbUp />
+            </IconButton>
           </div>
           <div>{`added by ${blog.user.name}`}</div>
           <h3>comments</h3>
-          <input
+          <TextField
             value={comment}
+            placeholder="Write comment"
             onChange={({ target }) => setComment(target.value)}
           />
-          <button onClick={handleComment}>add comment</button>
+          <Button onClick={handleComment}>add comment</Button>
           <ul>
             {blog.comments.length !== 0 ? (
               blog.comments.map((comment, i) => <li key={i}>{comment}</li>)
