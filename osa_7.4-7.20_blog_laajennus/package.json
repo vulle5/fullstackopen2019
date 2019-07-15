@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon index.js",
+    "watch": "cross-env NODE_ENV=development nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run watch\" \"npm run client\"",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "cypress": "npm run cypress:open --prefix client",
+    "start:test": "cross-env NODE_ENV=test node index.js",
+    "e2e:test": "concurrently \"npm run cypress\" \"npm run client\" \"npm run start:test\""
   },
   "author": "",
   "license": "ISC",
