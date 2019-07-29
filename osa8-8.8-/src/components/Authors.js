@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useApolloClient } from "@apollo/react-hooks";
+import Select from "react-select";
 
 const Authors = ({ show, result, editAuthor }) => {
   const [name, setName] = useState("");
@@ -49,10 +50,12 @@ const Authors = ({ show, result, editAuthor }) => {
       <h2>Set birthyear</h2>
       <form onSubmit={submit}>
         <div>
-          name
-          <input
-            value={name}
-            onChange={({ target }) => setName(target.value)}
+          <Select
+            options={authors.map(author => ({
+              value: author.name,
+              label: author.name
+            }))}
+            onChange={({ value }) => setName(value)}
           />
         </div>
         <div>
