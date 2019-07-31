@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer, gql, UserInputError } = require('apollo-server');
 const mongoose = require('mongoose');
 const { MONGO_URI } = require('./key');
 const Author = require('./models/author');
@@ -78,14 +78,14 @@ const resolvers = {
         try {
           author = await author.save();
         } catch (error) {
-          console.log(error);
+          throw new UserInputError(error.message, { invalidArgs: args });
         }
       }
       const book = new Book({ ...args, author: author });
       try {
         await book.save();
       } catch (error) {
-        console.log(error);
+        throw new UserInputError(error.message, { invalidArgs: args });
       }
 
       return book;
@@ -93,7 +93,9 @@ const resolvers = {
     editAuthor: async (root, args) => {
       const author = await Author.findOne({ name: args.name });
       if (!author) {
-        return null;
+        throw new UserInputError(`No author (${args.name}) found`, {
+          invalidArgs: args
+        });
       }
 
       const updatedAuthor = { ...args, born: args.setBornTo };
@@ -101,8 +103,7 @@ const resolvers = {
         await Author.updateOne({ name: author.name }, updatedAuthor);
         return updatedAuthor;
       } catch (error) {
-        console.log(error);
-        return null;
+        throw new UserInputError(error.message, { invalidArgs: args });
       }
     }
   }
