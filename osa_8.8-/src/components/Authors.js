@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useApolloClient } from "@apollo/react-hooks";
-import Select from "react-select";
+import React, { useState } from 'react';
+import Select from 'react-select';
 
 const Authors = ({ show, result, editAuthor }) => {
-  const [name, setName] = useState("");
-  const [born, setBorn] = useState("");
+  const [name, setName] = useState('');
+  const [born, setBorn] = useState('');
 
   const submit = async e => {
     e.preventDefault();
@@ -13,11 +12,10 @@ const Authors = ({ show, result, editAuthor }) => {
       variables: { name, born }
     });
 
-    setName("");
-    setBorn("");
+    setName('');
+    setBorn('');
   };
 
-  const client = useApolloClient();
   if (!show) {
     return null;
   }
