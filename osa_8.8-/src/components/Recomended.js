@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Recomended = ({ show, result, books }) => {
+const Recomended = ({ show, result, client, ALL_BOOKS }) => {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      console.log(client);
+      if (!result.loading) {
+        const { data } = await client.query({
+          query: ALL_BOOKS,
+          variables: { genre: result.data.me.favoriteGenre }
+        });
+        setBooks(data.allBooks);
+      }
+    })();
+  }, [ALL_BOOKS, client, result]);
+
   if (!show) {
     return null;
   }
-
-  if (result.loading || books.loading) {
-    return <div>loading...</div>;
-  }
-
-  const booksFromDb = books.data.allBooks;
-  const favoriteGenre = result.data.me.favoriteGenre;
 
   return (
     <div>
@@ -23,16 +31,13 @@ const Recomended = ({ show, result, books }) => {
             <th>author</th>
             <th>published</th>
           </tr>
-          {booksFromDb.map(
-            a =>
-              a.genres.includes(favoriteGenre) && (
-                <tr key={a.title}>
-                  <td>{a.title}</td>
-                  <td>{a.author.name}</td>
-                  <td>{a.published}</td>
-                </tr>
-              )
-          )}
+          {books.map(a => (
+            <tr key={a.title}>
+              <td>{a.title}</td>
+              <td>{a.author.name}</td>
+              <td>{a.published}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

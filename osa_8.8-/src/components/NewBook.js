@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const NewBook = ({ addBook, show }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+const NewBook = ({ addBook, show, client }) => {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
   const [published, setPublished] = useState(2019);
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState('');
   const [genres, setGenres] = useState([]);
 
   if (!show) {
@@ -14,22 +14,24 @@ const NewBook = ({ addBook, show }) => {
   const submit = async e => {
     e.preventDefault();
 
-    console.log("add book...");
+    console.log('add book...');
 
+    client.cache.reset();
+    await client.reFetchObservableQueries();
     await addBook({
       variables: { title, author, published, genres }
     });
 
-    setTitle("");
-    setPublished("");
-    setAuthor("");
+    setTitle('');
+    setPublished('');
+    setAuthor('');
     setGenres([]);
-    setGenre("");
+    setGenre('');
   };
 
   const addGenre = () => {
     setGenres(genres.concat(genre));
-    setGenre("");
+    setGenre('');
   };
 
   return (
@@ -66,7 +68,7 @@ const NewBook = ({ addBook, show }) => {
             add genre
           </button>
         </div>
-        <div>genres: {genres.join(" ")}</div>
+        <div>genres: {genres.join(' ')}</div>
         <button type="submit">create book</button>
       </form>
     </div>

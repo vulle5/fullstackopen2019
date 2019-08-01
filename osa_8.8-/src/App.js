@@ -138,7 +138,7 @@ const App = () => {
         ALL_BOOKS={ALL_BOOKS}
       />
 
-      <NewBook show={page === 'add'} addBook={addBook} />
+      <NewBook show={page === 'add'} addBook={addBook} client={client} />
 
       <LoginForm
         show={page === 'login'}
@@ -146,7 +146,12 @@ const App = () => {
         setToken={token => setToken(token)}
       />
 
-      <Recomended show={page === 'recomended'} result={whoami} books={books} />
+      <Recomended
+        show={page === 'recomended'}
+        result={whoami}
+        client={client}
+        ALL_BOOKS={ALL_BOOKS}
+      />
     </div>
   );
 };
