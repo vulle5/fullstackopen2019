@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Books = ({ show, result }) => {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    setBooks(result.data.allBooks);
+  }, [result.data.allBooks]);
+
   if (!show) {
     return null;
   }
@@ -9,7 +15,8 @@ const Books = ({ show, result }) => {
     return <div>loading...</div>;
   }
 
-  const books = result.data.allBooks;
+  const booksFromDb = result.data.allBooks;
+  const genres = [...new Set(booksFromDb.map(b => b.genres).flat())];
 
   return (
     <div>
@@ -31,6 +38,18 @@ const Books = ({ show, result }) => {
           ))}
         </tbody>
       </table>
+      <div>
+        {genres.map(genre => (
+          <button
+            key={genre}
+            onClick={() =>
+              setBooks(booksFromDb.filter(book => book.genres.includes(genre)))
+            }
+          >
+            {genre}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
