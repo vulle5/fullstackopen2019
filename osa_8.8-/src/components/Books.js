@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Books = ({ show, result }) => {
   if (!show) {
@@ -8,8 +8,6 @@ const Books = ({ show, result }) => {
   if (result.loading) {
     return <div>loading...</div>;
   }
-
-  console.log(result);
 
   const books = result.data.allBooks;
 
@@ -27,7 +25,7 @@ const Books = ({ show, result }) => {
           {books.map(a => (
             <tr key={a.title}>
               <td>{a.title}</td>
-              <td>{a.author}</td>
+              <td>{a.author.name}</td>
               <td>{a.published}</td>
             </tr>
           ))}

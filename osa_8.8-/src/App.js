@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { gql } from "apollo-boost";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import Authors from "./components/Authors";
-import Books from "./components/Books";
-import NewBook from "./components/NewBook";
+import React, { useState } from 'react';
+import { gql } from 'apollo-boost';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import Authors from './components/Authors';
+import Books from './components/Books';
+import NewBook from './components/NewBook';
 
 const App = () => {
-  const [page, setPage] = useState("authors");
+  const [page, setPage] = useState('authors');
 
   const ALL_AUTHORS = gql`
     {
@@ -22,8 +22,12 @@ const App = () => {
     {
       allBooks {
         title
-        author
+        author {
+          name
+          born
+        }
         published
+        genres
       }
     }
   `;
@@ -70,20 +74,20 @@ const App = () => {
   return (
     <div>
       <div>
-        <button onClick={() => setPage("authors")}>authors</button>
-        <button onClick={() => setPage("books")}>books</button>
-        <button onClick={() => setPage("add")}>add book</button>
+        <button onClick={() => setPage('authors')}>authors</button>
+        <button onClick={() => setPage('books')}>books</button>
+        <button onClick={() => setPage('add')}>add book</button>
       </div>
 
       <Authors
-        show={page === "authors"}
+        show={page === 'authors'}
         result={authors}
         editAuthor={editAuthor}
       />
 
-      <Books show={page === "books"} result={books} />
+      <Books show={page === 'books'} result={books} />
 
-      <NewBook show={page === "add"} addBook={addBook} />
+      <NewBook show={page === 'add'} addBook={addBook} />
     </div>
   );
 };
