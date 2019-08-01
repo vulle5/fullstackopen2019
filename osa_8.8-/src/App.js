@@ -29,8 +29,8 @@ const App = () => {
   `;
 
   const ALL_BOOKS = gql`
-    {
-      allBooks {
+    query allBooks($genre: String) {
+      allBooks(genre: $genre) {
         title
         author {
           name
@@ -131,7 +131,12 @@ const App = () => {
         editAuthor={editAuthor}
       />
 
-      <Books show={page === 'books'} result={books} />
+      <Books
+        show={page === 'books'}
+        result={books}
+        client={client}
+        ALL_BOOKS={ALL_BOOKS}
+      />
 
       <NewBook show={page === 'add'} addBook={addBook} />
 

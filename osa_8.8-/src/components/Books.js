@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Books = ({ show, result }) => {
+const Books = ({ show, result, client, ALL_BOOKS }) => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -42,9 +42,13 @@ const Books = ({ show, result }) => {
         {genres.map(genre => (
           <button
             key={genre}
-            onClick={() =>
-              setBooks(booksFromDb.filter(book => book.genres.includes(genre)))
-            }
+            onClick={async () => {
+              const { data } = await client.query({
+                query: ALL_BOOKS,
+                variables: { genre: genre }
+              });
+              setBooks(data.allBooks);
+            }}
           >
             {genre}
           </button>
