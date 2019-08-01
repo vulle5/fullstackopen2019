@@ -49,6 +49,7 @@ const Books = ({ show, result }) => {
             {genre}
           </button>
         ))}
+        <button onClick={() => setBooks(booksFromDb)}>all genres</button>
       </div>
     </div>
   );

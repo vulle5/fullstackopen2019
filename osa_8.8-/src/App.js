@@ -5,6 +5,7 @@ import Authors from './components/Authors';
 import Books from './components/Books';
 import NewBook from './components/NewBook';
 import LoginForm from './components/LoginForm';
+import Recomended from './components/Recomended';
 
 const App = () => {
   const [page, setPage] = useState('authors');
@@ -37,6 +38,15 @@ const App = () => {
         }
         published
         genres
+      }
+    }
+  `;
+
+  const ME = gql`
+    {
+      me {
+        username
+        favoriteGenre
       }
     }
   `;
@@ -90,6 +100,7 @@ const App = () => {
 
   const authors = useQuery(ALL_AUTHORS);
   const books = useQuery(ALL_BOOKS);
+  const whoami = useQuery(ME);
   const [addBook] = useMutation(ADD_BOOK, {
     refetchQueries: [{ query: ALL_BOOKS }, { query: ALL_AUTHORS }]
   });
@@ -106,6 +117,9 @@ const App = () => {
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
         {token && <button onClick={() => setPage('add')}>add book</button>}
+        {token && (
+          <button onClick={() => setPage('recomended')}>recomended</button>
+        )}
         <button onClick={token ? () => logout() : () => setPage('login')}>
           {token ? 'logout' : 'login'}
         </button>
@@ -126,6 +140,8 @@ const App = () => {
         login={login}
         setToken={token => setToken(token)}
       />
+
+      <Recomended show={page === 'recomended'} result={whoami} books={books} />
     </div>
   );
 };
