@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation, useApolloClient } from '@apollo/react-hooks';
 import Authors from './components/Authors';
 import Books from './components/Books';
 import NewBook from './components/NewBook';
+import LoginForm from './components/LoginForm';
 
 const App = () => {
   const [page, setPage] = useState('authors');
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('phonenumbers-user-token');
+    token && setToken(token);
+  }, []);
+
+  const client = new useApolloClient();
 
   const ALL_AUTHORS = gql`
     {
@@ -46,7 +55,10 @@ const App = () => {
         genres: $genres
       ) {
         title
-        author
+        author {
+          id
+          name
+        }
         published
         genres
       }
@@ -62,6 +74,20 @@ const App = () => {
     }
   `;
 
+  const LOGIN = gql`
+    mutation login($username: String!, $password: String!) {
+      login(username: $username, password: $password) {
+        value
+      }
+    }
+  `;
+
+  const logout = () => {
+    setToken(null);
+    localStorage.clear();
+    client.resetStore();
+  };
+
   const authors = useQuery(ALL_AUTHORS);
   const books = useQuery(ALL_BOOKS);
   const [addBook] = useMutation(ADD_BOOK, {
@@ -70,13 +96,19 @@ const App = () => {
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
     refetchQueries: [{ query: ALL_AUTHORS }]
   });
+  const [login] = useMutation(LOGIN, {
+    onError: () => console.log('Error login in')
+  });
 
   return (
     <div>
       <div>
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
-        <button onClick={() => setPage('add')}>add book</button>
+        {token && <button onClick={() => setPage('add')}>add book</button>}
+        <button onClick={token ? () => logout() : () => setPage('login')}>
+          {token ? 'logout' : 'login'}
+        </button>
       </div>
 
       <Authors
@@ -88,6 +120,12 @@ const App = () => {
       <Books show={page === 'books'} result={books} />
 
       <NewBook show={page === 'add'} addBook={addBook} />
+
+      <LoginForm
+        show={page === 'login'}
+        login={login}
+        setToken={token => setToken(token)}
+      />
     </div>
   );
 };
