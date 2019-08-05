@@ -5,7 +5,6 @@ const Recomended = ({ show, result, client, ALL_BOOKS }) => {
 
   useEffect(() => {
     (async () => {
-      console.log(client);
       if (!result.loading) {
         const { data } = await client.query({
           query: ALL_BOOKS,
