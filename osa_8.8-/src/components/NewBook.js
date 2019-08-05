@@ -16,11 +16,11 @@ const NewBook = ({ addBook, show, client }) => {
 
     console.log('add book...');
 
-    client.cache.reset();
-    await client.reFetchObservableQueries();
     await addBook({
       variables: { title, author, published, genres }
     });
+    client.cache.reset();
+    await client.reFetchObservableQueries();
 
     setTitle('');
     setPublished('');
