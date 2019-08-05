@@ -16,6 +16,7 @@ const JWT_SECRET = 'SECRET';
 const pubsub = new PubSub();
 
 mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true })
